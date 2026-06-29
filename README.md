@@ -3,6 +3,8 @@
 Static project page for **Multi-Agent Coordination via Support-Preserving Distillation**.
 It is plain HTML/CSS/JavaScript, so it can be deployed directly with GitHub Pages without a build step.
 
+Live site: https://alex6095.github.io/mosdot/
+
 ## Files
 
 ```text
