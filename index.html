@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MoSDOT | Multi-Agent Coordination via Support-Preserving Distillation</title>
+  <meta name="description" content="Project page for Multi-Agent Coordination via Support-Preserving Distillation. MoSDOT aligns source noise with mode support using semi-discrete optimal transport for offline MARL generative distillation.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="MoSDOT | Support-Preserving Distillation">
+  <meta property="og:description" content="Mode-Support Semi-Discrete Optimal Transport for support-preserving multi-agent coordination.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/figures/fig1_overview.png">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <nav class="nav wrap">
+      <a class="brand" href="#top" aria-label="MoSDOT home">
+        <span class="brand-mark">M</span>
+        <span>MoSDOT</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#visuals">Visuals</a>
+        <a href="#citation">Citation</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Offline MARL · Generative Distillation · Semi-Discrete OT</p>
+          <h1>Multi-Agent Coordination via <span>Support-Preserving Distillation</span></h1>
+          <p class="subtitle">MoSDOT aligns source-noise regions with coordinated joint-action modes before teacher training, producing cleaner decentralized one-step actors under CTDE.</p>
+          <p class="authors">Anonymous Author(s)</p>
+          <p class="venue">Submitted to the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)</p>
+          <div class="cta-row" aria-label="Project links">
+            <a class="btn primary" href="assets/paper/paper.pdf" target="_blank" rel="noopener">Paper PDF</a>
+            <a class="btn" href="#citation">BibTeX</a>
+            <a class="btn disabled" href="#" aria-disabled="true" title="Replace with the code URL when available">Code coming soon</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Animated source-to-mode routing sketch">
+          <div class="canvas-shell">
+            <canvas id="routeCanvas" width="760" height="520"></canvas>
+          </div>
+          <div class="legend-row">
+            <span><i class="dot dot-source"></i>source noise</span>
+            <span><i class="dot dot-flow"></i>unstructured flow</span>
+            <span><i class="dot dot-mode"></i>MoSDOT cells</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact">
+      <div class="wrap">
+        <div class="tldr card">
+          <p class="label">TL;DR</p>
+          <p>Standard flow teachers can route nearby noise samples toward conflicting coordination modes, creating off-support bridges. <strong>MoSDOT</strong> uses capacity-matched conditional semi-discrete optimal transport to assign each source sample to a single replay-derived mode before teacher training, improving support preservation and route consistency.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="abstract">
+      <div class="wrap two-col">
+        <div>
+          <p class="section-kicker">Abstract</p>
+          <h2>Support-preserving teacher construction for decentralized execution</h2>
+        </div>
+        <div class="prose">
+          <p>Offline multi-agent reinforcement learning increasingly uses centralized generative teachers to model multimodal joint behavior and distill it into decentralized one-step actors. The paper identifies a teacher-stage failure mode: independent noise-target pairing can entangle nearby source samples with incompatible coordination modes, causing the teacher to produce samples between valid modes. The downstream distillation loss can then propagate this error to local actors.</p>
+          <p>MoSDOT summarizes multimodal replay into a finite mode support with prescribed capacities, then partitions source-noise space using conditional semi-discrete optimal transport. A shared-randomness variant further exposes the residual gap caused by strict-product execution when correlated joint support cannot be represented by independent local sampling.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="problem">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">Motivation</p>
+          <h2>Why endpoint accuracy alone is not enough</h2>
+          <p>For decentralized execution, a teacher must not only reach valid joint modes; it must choose modes in a way that local actors can reproduce.</p>
+        </div>
+        <div class="cards three">
+          <article class="card step-card">
+            <span class="step-num">01</span>
+            <h3>Teacher-side fan mass</h3>
+            <p>Independent noise-target pairings can force adjacent source samples to learn conflicting coordination modes, creating bridges through low-density or invalid regions.</p>
+          </article>
+          <article class="card step-card">
+            <span class="step-num">02</span>
+            <h3>Distillation projection</h3>
+            <p>When a teacher's mode choice depends on information hidden from a local actor, pointwise local regression averages distinct branches.</p>
+          </article>
+          <article class="card step-card">
+            <span class="step-num">03</span>
+            <h3>Strict-product gap</h3>
+            <p>Even a clean centralized teacher may represent correlated joint support that independent local sampling cannot exactly reproduce.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="method">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">Method</p>
+          <h2>Mode-Support Semi-Discrete Optimal Transport</h2>
+          <p>MoSDOT inserts a structured source-to-mode assignment stage before training the centralized flow teacher.</p>
+        </div>
+
+        <figure class="figure-card wide">
+          <img src="assets/figures/fig2_framework.png" alt="MoSDOT framework diagram showing mode-support source assignment, conditional SDOT, teacher distillation, and shared randomness.">
+          <figcaption>Framework overview: replay actions are summarized into a mode support with capacities; conditional SDOT partitions source noise into cells; the teacher is distilled into decentralized actors, optionally with shared randomness.</figcaption>
+        </figure>
+
+        <div class="pipeline" aria-label="MoSDOT pipeline">
+          <article>
+            <span>1</span>
+            <h3>Build mode support</h3>
+            <p>Group replay joint actions at each context into representative coordinated modes y<sub>k</sub>(x).</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Set capacities</h3>
+            <p>Assign target source mass b<sub>k</sub>(x), usually by empirical replay frequency.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Solve conditional SDOT</h3>
+            <p>Partition source space into Laguerre cells Γ<sub>x</sub><sup>-1</sup>(k), each assigned to one mode.</p>
+          </article>
+          <article>
+            <span>4</span>
+            <h3>Train and distill</h3>
+            <p>Train the centralized teacher on aligned paths and distill teacher samples into local one-step actors.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="results">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">Results</p>
+          <h2>Cleaner routing, better support preservation</h2>
+          <p>Across controlled diagnostics and offline MARL benchmarks, the strongest gains appear when replay contains diverse joint behaviors.</p>
+        </div>
+
+        <figure class="figure-card wide">
+          <img src="assets/figures/fig1_overview.png" alt="Overview of source-to-mode routing comparing standard flow policy with MoSDOT and radar metrics.">
+          <figcaption>Source-to-mode routing: standard flow matching can create off-support fan mass, while MoSDOT partitions noise space into capacity-matched cells assigned to coordinated behavior modes.</figcaption>
+        </figure>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span>Fan-free</span>
+            <strong>0.983</strong>
+            <small>Landmark joint-teacher diagnostic</small>
+          </div>
+          <div class="metric-card">
+            <span>Route consistency</span>
+            <strong>0.972</strong>
+            <small>Highest among compared teachers</small>
+          </div>
+          <div class="metric-card">
+            <span>Strict success</span>
+            <strong>0.991</strong>
+            <small>Endpoint hit quality</small>
+          </div>
+          <div class="metric-card">
+            <span>MPE average</span>
+            <strong>82.6</strong>
+            <small>vs. MAC-Flow 65.8</small>
+          </div>
+        </div>
+
+        <div class="table-card" role="region" aria-label="Selected benchmark results" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Evaluation</th>
+                <th>MoSDOT</th>
+                <th>Strong reference</th>
+                <th>Takeaway</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Landmark teacher route consistency</td>
+                <td><strong>0.972</strong></td>
+                <td>Flow matching 0.856</td>
+                <td>Cleaner source-to-mode routing</td>
+              </tr>
+              <tr>
+                <td>Landmark student fan-free</td>
+                <td><strong>0.971</strong></td>
+                <td>Flow matching 0.849</td>
+                <td>Teacher geometry survives distillation</td>
+              </tr>
+              <tr>
+                <td>SMACv1 average reward</td>
+                <td><strong>16.7</strong></td>
+                <td>MAC-Flow 15.6 · DoF 15.6</td>
+                <td>Strong discrete-action average</td>
+              </tr>
+              <tr>
+                <td>SMACv2 average reward</td>
+                <td>11.9</td>
+                <td>DoF 14.0 · MAC-Flow 13.1</td>
+                <td>Competitive but not best on all regimes</td>
+              </tr>
+              <tr>
+                <td>MPE Simple Spread average</td>
+                <td><strong>82.6</strong></td>
+                <td>MAC-Flow 65.8 · ICQ 58.8</td>
+                <td>Clear gains on diverse continuous replay</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visuals">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">Visual diagnostics</p>
+          <h2>From teacher routes to factorized students</h2>
+        </div>
+        <div class="figure-grid">
+          <figure class="figure-card">
+            <img src="assets/figures/fig3_landmark.png" alt="Landmark policy trajectories comparing Flow Matching, IMLE, Drifting, and MoSDOT teachers and students.">
+            <figcaption>Landmark trajectories: MoSDOT reduces fan mass and retains the ray structure after decentralized distillation.</figcaption>
+          </figure>
+          <figure class="figure-card">
+            <img src="assets/figures/fig6_xor.png" alt="XOR strict-product visualization showing target support, MAC-Flow, MoSDOT without shared signal, and MoSDOT with shared signal.">
+            <figcaption>XOR diagnostic: shared randomness lets decentralized actors agree on mode selection and isolates the strict-product gap.</figcaption>
+          </figure>
+          <figure class="figure-card">
+            <img src="assets/figures/fig7_teacher_student.png" alt="Joint mode-tuple support bars for teacher and student across MoSDOT, Flow Matching, IMLE, and Drift.">
+            <figcaption>Mode-tuple support: MoSDOT preserves validity and balance from teacher to one-step student.</figcaption>
+          </figure>
+          <figure class="figure-card">
+            <img src="assets/figures/tables_benchmark.png" alt="Benchmark tables for SMACv1, SMACv2, and MPE Simple Spread.">
+            <figcaption>Benchmark tables: discrete and continuous offline MARL results across Gaussian, diffusion, flow, and OT-policy baselines.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section muted" id="algorithm">
+      <div class="wrap two-col align-start">
+        <div>
+          <p class="section-kicker">Algorithm</p>
+          <h2>Strict-product and shared-randomness variants</h2>
+          <p class="prose narrow">The strict-product variant trains a centralized SDOT-aligned teacher, learns a centralized critic, and distills local actors. The shared-randomness extension changes only the distillation and execution-time actor signature by providing a public signal h.</p>
+          <ul class="check-list">
+            <li>Mode support is derived from replay joint actions.</li>
+            <li>Source assignments are capacity-matched before teacher training.</li>
+            <li>Decentralized actors use only local observations and local noise unless the shared-randomness variant is enabled.</li>
+          </ul>
+        </div>
+        <figure class="figure-card algorithm-shot">
+          <img src="assets/figures/alg1_mosdot.png" alt="Pseudocode for MoSDOT strict-product variant.">
+          <figcaption>Algorithm 1: mode-support SDOT alignment and decentralized distillation.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="citation">
+      <div class="wrap citation-wrap">
+        <div>
+          <p class="section-kicker">Citation</p>
+          <h2>BibTeX</h2>
+          <p>Replace the author, venue, and archive fields after the public version is available.</p>
+        </div>
+        <div class="code-card">
+          <button class="copy-btn" type="button" data-copy-target="bibtex">Copy</button>
+          <pre id="bibtex"><code>@misc{anonymous2026mosdot,
+  title  = {Multi-Agent Coordination via Support-Preserving Distillation},
+  author = {Anonymous Author(s)},
+  year   = {2026},
+  note   = {Submitted to NeurIPS 2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <p>© 2026 MoSDOT. Static project page prepared for GitHub Pages.</p>
+      <p>Update author names, code URL, and paper PDF before public release.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
