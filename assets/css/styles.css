@@ -252,6 +252,12 @@ h3 {
   background: white;
 }
 
+.teaser img,
+.hero-figure img {
+  padding: 26px 30px;
+  object-fit: contain;
+}
+
 .figure-frame figcaption {
   padding: 16px 20px 18px;
   border-top: 1px solid var(--line);
@@ -571,6 +577,10 @@ tr:last-child td { border-bottom: 0; }
   h1 { font-size: clamp(2.3rem, 11.5vw, 3.55rem); }
   h2 { font-size: clamp(2rem, 9vw, 3rem); }
   .subtitle { font-size: 0.99rem; }
+  .teaser img,
+  .hero-figure img {
+    padding: 16px;
+  }
   .section { padding: 66px 0; }
   .process,
   .highlight-strip {
