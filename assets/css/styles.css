@@ -129,26 +129,9 @@ button {
   letter-spacing: -0.6px;
 }
 .brand-mark {
-  display: flex;
-  align-items: center;
-  gap: 3px;
   width: 28px;
   height: 28px;
-}
-.brand-mark i {
-  width: 6px;
-  background: var(--brand);
-  border-radius: 5px;
-  transform: rotate(-24deg);
-  height: 22px;
-}
-.brand-mark i:nth-child(2) {
-  height: 28px;
-  background: #9870eb;
-}
-.brand-mark i:nth-child(3) {
-  height: 16px;
-  background: #c5b0f0;
+  flex: none;
 }
 .nav-links {
   display: flex;

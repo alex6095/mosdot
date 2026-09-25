@@ -26,6 +26,7 @@ Visually inspected in Chrome at 1440px desktop, 768px tablet, 390px mobile, and 
 - Mobile navigation opens, closes on section selection, and updates `aria-expanded`.
 - Citation copy reports successful Clipboard API completion; browser automation's separate virtual clipboard does not reflect the system clipboard.
 - No browser warnings or errors observed during interaction checks.
+- Replaced the abstract three-bar mark with an `M` monogram shared by the header and favicon. Rechecked the header at 390px and 1440px; the letter is legible and neither viewport has horizontal overflow.
 
 ## Reproducible checks
 
