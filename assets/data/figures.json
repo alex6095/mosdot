@@ -1,0 +1,42 @@
+[
+  {
+    "name": "overview",
+    "figure": 1,
+    "overleafFile": "figures/fig1_rrrr.pdf",
+    "width": 2400,
+    "height": 661,
+    "sha256": "1a649ac05b0144b14343a31e2e44c463b4397aac71dcac221b0c168c885028dc"
+  },
+  {
+    "name": "framework",
+    "figure": 2,
+    "overleafFile": "figures/fig2_81.pdf",
+    "width": 2400,
+    "height": 641,
+    "sha256": "f3388539d1b4676502cc8e838b778bba900d430de29c260c062b652b092d9c3f"
+  },
+  {
+    "name": "landmark",
+    "figure": 3,
+    "overleafFile": "figures/fig4_1r.pdf",
+    "width": 2400,
+    "height": 1047,
+    "sha256": "29a96083b38ae44fca0d1bed909c57d3c4163ea753f00ec569aa658ca0ea6b9b"
+  },
+  {
+    "name": "xor",
+    "figure": 6,
+    "overleafFile": "figures/fig3_rr.pdf",
+    "width": 2400,
+    "height": 605,
+    "sha256": "609921bd19bf46520b46a50ccfdce3931f831157abc90b8bf6c1cd56e7649fd2"
+  },
+  {
+    "name": "mode-support",
+    "figure": 7,
+    "overleafFile": "figures/joint_mode_support_grid_v2.pdf",
+    "width": 2400,
+    "height": 1166,
+    "sha256": "859a4fb78bfee91ded49e16250722bde770d46a712b95ab55ed52ff88ba0aef7"
+  }
+]

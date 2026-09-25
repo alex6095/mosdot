@@ -3,279 +3,162 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MoSDOT | Support-Preserving Distillation for Multi-Agent Coordination</title>
-  <meta name="description" content="Project page for Multi-Agent Coordination via Support-Preserving Distillation. MoSDOT uses capacity-matched conditional semi-discrete optimal transport to preserve coordinated joint-action support in offline MARL.">
-  <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="MoSDOT | Support-Preserving Distillation">
-  <meta property="og:description" content="Mode-Support Semi-Discrete Optimal Transport for support-preserving multi-agent coordination.">
+  <title>MoSDOT · Multi-Agent Coordination via Support-Preserving Distillation</title>
+  <meta name="description" content="Accepted to NeurIPS 2026. MoSDOT aligns source noise with coordinated joint-action modes using semi-discrete optimal transport, for cleaner teachers and support-preserving decentralized distillation.">
+  <meta name="theme-color" content="#fcfbff">
+  <meta property="og:title" content="MoSDOT · NeurIPS 2026">
+  <meta property="og:description" content="Multi-Agent Coordination via Support-Preserving Distillation">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://alex6095.github.io/mosdot/">
-  <meta property="og:image" content="assets/figures/fig1_overview.png">
+  <meta property="og:image" content="https://alex6095.github.io/mosdot/assets/figures/fig1_overview.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://alex6095.github.io/mosdot/">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20260630-figure-padding">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260925">
+  <script src="assets/js/main.js?v=20260925" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header" aria-label="Primary navigation">
-    <nav class="nav wrap">
-      <a class="brand" href="#top" aria-label="MoSDOT home">
-        <span class="brand-mark">M</span>
-        <span>MoSDOT</span>
-      </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
-      <div class="nav-links" id="nav-links">
-        <a href="#overview">Overview</a>
-        <a href="#method">Method</a>
-        <a href="#results">Results</a>
-        <a href="#diagnostics">Diagnostics</a>
-        <a href="#citation">BibTeX</a>
-      </div>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="MoSDOT home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>MoSDOT</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu <span aria-hidden="true">☰</span></button>
+      <div class="nav-links" id="nav-links"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#diagnostics">Diagnostics</a><a href="#citation">Citation</a></div>
+      <a class="nav-paper" href="assets/paper/paper.pdf" target="_blank" rel="noopener">Read paper <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
-
   <main id="main">
     <section class="hero" id="top">
       <div class="wrap hero-inner">
-        <p class="eyebrow">Offline MARL · Generative Distillation · Semi-Discrete OT</p>
-        <h1><span>MoSDOT</span>: Support-Preserving Distillation for Multi-Agent Coordination</h1>
-        <p class="subtitle">
-          A mode-support semi-discrete optimal transport framework that assigns source noise to
-          coordinated joint-action modes before teacher training, reducing off-support fan mass
-          and improving decentralized one-step actors under CTDE.
-        </p>
-
-        <div class="authors">
-          <p>Anonymous Author(s)</p>
-          <p class="venue">Submitted to the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)</p>
-        </div>
-
+        <p class="venue-badge"><span aria-hidden="true"></span>Accepted to NeurIPS 2026</p>
+        <p class="wordmark">MoSDOT</p>
+        <h1>Multi-Agent Coordination <br>via <span>Support-Preserving Distillation</span></h1>
+        <p class="subtitle">Better coordination starts with a better teacher.<br class="desktop-break"> Align source noise with joint-action modes, then distill into local one-step policies.</p>
+        <div class="authors"><p><span>Sangmin Lee</span><span>Youngju Na</span><span>Chanmi Lee</span><span>Sung-eui Yoon<sup class="corresponding-marker" aria-label="Corresponding author">†</sup></span></p><p class="affiliation">KAIST</p><p class="corresponding-note"><sup>†</sup>Corresponding author</p></div>
         <div class="cta-row" aria-label="Project links">
-          <a class="btn primary" href="assets/paper/paper.pdf" target="_blank" rel="noopener">Paper PDF</a>
-          <a class="btn" href="#citation">BibTeX</a>
-          <a class="btn disabled" href="#" aria-disabled="true" title="Replace with the public code URL when available">Code coming soon</a>
+          <a class="btn primary" href="assets/paper/paper.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v5h4 M9 12h6 M9 16h6"/></svg>Paper PDF <span aria-hidden="true">↗</span></a>
+          <a class="btn" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16 M8 16v-4 M13 16V8 M18 16V4"/></svg>Explore results</a>
+          <span class="btn unavailable">Code <span class="soon">Coming soon</span></span>
         </div>
-
-        <figure class="teaser figure-frame">
-          <img src="assets/figures/fig1_overview.png?v=20260630-hires" alt="MoSDOT overview comparing standard flow policy routing with support-preserving MoSDOT routing and evaluation metrics.">
-          <figcaption>
-            Standard flow matching can route nearby noise samples toward conflicting coordination modes.
-            MoSDOT partitions source space into capacity-matched cells assigned to replay-derived mode support.
-          </figcaption>
+        <figure class="figure-frame teaser">
+          <a class="figure-link" href="assets/figures/original/fig1_rrrr.pdf" data-figure="assets/figures/overview.webp" aria-label="Enlarge Figure 1: source-to-mode routing"><img src="assets/figures/overview.webp" width="2400" height="661" fetchpriority="high" alt="Flow Policy scatters source trajectories between modes; MoSDOT organizes the same space into capacity-matched regions. A radar plot compares four teacher diagnostics."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 1</span><p><strong>Give every noise sample a coordinated destination.</strong> MoSDOT assigns source regions to replay-derived modes before teacher training, reducing off-support mass and improving routing consistency.</p></figcaption>
         </figure>
+        <div class="hero-meta"><span>Offline multi-agent RL</span><span>Centralized training · decentralized execution</span><span>Semi-discrete optimal transport</span></div>
       </div>
     </section>
-
-    <section class="section overview" id="overview">
-      <div class="wrap claim-grid">
-        <div>
-          <p class="section-kicker">Overview</p>
-          <h2>Endpoint quality is not enough when the route to each mode is entangled.</h2>
+    <section class="section" id="overview">
+      <div class="wrap">
+        <div class="claim-grid"><div><p class="section-kicker">01 / The idea</p><h2>Good endpoints.<br><span class="muted-heading">Better routes.</span></h2></div>
+          <div class="prose lead"><p>A centralized teacher can reach valid joint-action modes yet still assign nearby noise samples to conflicting behaviors. Local actors can inherit these artifacts during distillation, producing actions between valid modes.</p><p><strong>MoSDOT organizes the source-to-mode assignment first.</strong> Capacity-matched transport gives the teacher cleaner targets and preserves more of the support that decentralized actors can recover.</p><p class="boundary-note">A clean teacher does not remove the strict-product gap: independent local policies cannot represent every correlated joint distribution. We study shared randomness separately.</p></div></div>
+        <div class="highlight-strip" aria-label="Selected results from the paper">
+          <a href="#diagnostics"><span class="metric-context">Landmark · teacher</span><strong>0.972</strong><span>Route consistency</span><small>vs. 0.856 · Flow matching</small></a>
+          <a href="#diagnostics"><span class="metric-context">Landmark · teacher</span><strong>0.983</strong><span>Fan-free endpoints</span><small>vs. 0.857 · Flow matching</small></a>
+          <a href="#results" data-show-benchmark="smac1"><span class="metric-context">SMACv1 · average reward</span><strong>16.7</strong><span>Discrete-action coordination</span><small>vs. 15.6 · MAC-Flow</small></a>
+          <a href="#results" data-show-benchmark="mpe"><span class="metric-context">MPE · average reward</span><strong>82.6</strong><span>Continuous-action coordination</span><small>vs. 65.8 · MAC-Flow</small></a>
         </div>
-        <div class="prose lead">
-          <p>
-            Offline multi-agent reinforcement learning often distills a centralized generative teacher
-            into decentralized one-step actors. The teacher can hit valid joint-action modes while still
-            learning noisy source-to-target assignments that pass through invalid low-density regions.
-          </p>
-          <p>
-            MoSDOT makes the teacher construction explicit: summarize replay into finite coordinated
-            modes, prescribe each mode's capacity, solve conditional semi-discrete optimal transport,
-            then train and distill on support-preserving paths.
-          </p>
-        </div>
+        <p class="source-note">Landmark means over 4 seeds (Table 1). Benchmark averages as reported in Tables 2–3; benchmark evaluation uses 6 seeds.</p>
       </div>
     </section>
-
     <section class="section tinted" id="method">
       <div class="wrap">
-        <div class="section-head wide-head">
-          <p class="section-kicker">Method</p>
-          <h2>One transport assignment stage for cleaner centralized teachers.</h2>
-          <p>
-            MoSDOT inserts a structured source-to-mode alignment step before teacher training,
-            preserving multimodal replay geometry while keeping decentralized execution unchanged.
-          </p>
-        </div>
-
-        <figure class="figure-frame hero-figure">
-          <img src="assets/figures/fig2_framework.png?v=20260630-hires" alt="MoSDOT framework diagram showing mode-support source assignment, conditional SDOT, teacher distillation, and shared randomness.">
-          <figcaption>
-            Replay actions are summarized into a finite mode support with prescribed capacities.
-            Conditional SDOT partitions source noise into mode cells before teacher distillation.
-          </figcaption>
+        <div class="section-head"><p class="section-kicker">02 / The method</p><h2>Align. Train. Distill.</h2><p>A structured source assignment before teacher training.<br>One-step local actors at execution.</p></div>
+        <figure class="figure-frame">
+          <a class="figure-link" href="assets/figures/original/fig2_81.pdf" data-figure="assets/figures/framework.webp" aria-label="Enlarge Figure 2: MoSDOT framework"><img src="assets/figures/framework.webp" width="2400" height="641" loading="lazy" alt="Replay joint actions become mode support and capacities. Conditional SDOT assigns source noise to modes. A centralized teacher is distilled into local actors, optionally with shared randomness."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 2</span><p><strong>The MoSDOT framework.</strong> Transport operates on coordinated joint-action modes. Each distilled actor uses its own observation and noise; the shared-randomness variant additionally supplies a common signal <i>h</i>.</p></figcaption>
         </figure>
-
         <div class="process">
-          <article>
-            <span>01</span>
-            <h3>Build mode support</h3>
-            <p>Cluster replay joint actions into representative coordinated modes y<sub>k</sub>(x).</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Prescribe capacities</h3>
-            <p>Assign each mode target source mass b<sub>k</sub>(x), typically from replay frequency.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Solve conditional SDOT</h3>
-            <p>Partition source space into Laguerre cells Gamma<sub>x</sub><sup>-1</sup>(k).</p>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>Train and distill</h3>
-            <p>Fit the centralized teacher on aligned paths, then distill into local one-step actors.</p>
-          </article>
+          <article><span class="step">01</span><h3>Build mode support</h3><p>Summarize replay into representative joint actions y<sub>k</sub>(x), using identity support or joint-action quantization.</p></article>
+          <article><span class="step">02</span><h3>Match capacities</h3><p>Assign each mode a target source mass b<sub>k</sub>(x) from its empirical replay frequency.</p></article>
+          <article><span class="step">03</span><h3>Align with SDOT</h3><p>Partition source noise into capacity-matched Laguerre cells, each assigned to one joint-action mode.</p></article>
+          <article><span class="step">04</span><h3>Distill local actors</h3><p>Train the teacher on aligned paths and distill its joint actions into decentralized one-step policies.</p></article>
         </div>
       </div>
     </section>
-
     <section class="section" id="results">
       <div class="wrap">
-        <div class="section-head wide-head">
-          <p class="section-kicker">Results</p>
-          <h2>Cleaner routing and stronger support preservation across multimodal replay.</h2>
-          <p>
-            The biggest gains appear when the offline dataset contains diverse coordinated behaviors,
-            where unstructured flow teachers are most likely to learn off-support bridges.
-          </p>
+        <div class="section-head"><p class="section-kicker">03 / Benchmark results</p><h2>Coordination across<br>different kinds of replay.</h2><p>Strong gains on diverse continuous replay, with results that vary by discrete-action regime. Explore every baseline and dataset below.</p></div>
+        <div class="benchmark-controls" aria-label="Choose benchmark">
+          <button type="button" class="benchmark-tab" id="tab-mpe" data-benchmark="mpe" aria-controls="panel-mpe">MPE <span>Continuous</span></button>
+          <button type="button" class="benchmark-tab" id="tab-smac1" data-benchmark="smac1" aria-controls="panel-smac1">SMACv1 <span>Discrete</span></button>
+          <button type="button" class="benchmark-tab" id="tab-smac2" data-benchmark="smac2" aria-controls="panel-smac2">SMACv2 <span>Discrete</span></button>
         </div>
-
-        <div class="highlight-strip" aria-label="Key results">
-          <div>
-            <strong>0.983</strong>
-            <span>fan-free teacher endpoints</span>
-          </div>
-          <div>
-            <strong>0.972</strong>
-            <span>route consistency</span>
-          </div>
-          <div>
-            <strong>16.7</strong>
-            <span>SMACv1 average reward</span>
-          </div>
-          <div>
-            <strong>82.6</strong>
-            <span>MPE average reward</span>
-          </div>
+        <div class="results-card">
+          <!-- BENCHMARK_TABLES_START -->
+<section id="panel-mpe" class="benchmark-panel" aria-labelledby="tab-mpe">
+<div class="panel-heading"><div><h3>MPE Simple Spread</h3><p>Continuous actions · four dataset qualities</p></div><span class="source-tag">Paper · Table 3</span></div>
+<div class="table-scroll" role="region" aria-label="MPE Simple Spread results, scroll horizontally" tabindex="0"><table><caption class="sr-only">MPE Simple Spread. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Expert <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium-Replay <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Random <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Average <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">MATD3BC</th><td><span class="score second" title="Second-best mean">108.3<span class="uncertainty"> ± 3.3</span></span></td><td><span class="score ">29.3<span class="uncertainty"> ± 4.8</span></span></td><td><span class="score ">15.4<span class="uncertainty"> ± 5.6</span></span></td><td><span class="score ">9.8<span class="uncertainty"> ± 4.9</span></span></td><td><span class="score ">40.7</span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">98.2<span class="uncertainty"> ± 5.2</span></span></td><td><span class="score ">34.1<span class="uncertainty"> ± 7.2</span></span></td><td><span class="score ">20.0<span class="uncertainty"> ± 8.4</span></span></td><td><span class="score ">24.0<span class="uncertainty"> ± 9.8</span></span></td><td><span class="score ">44.1</span></td></tr><tr><th scope="row">ICQ</th><td><span class="score best" title="Best mean">114.9<span class="uncertainty"> ± 2.6</span></span></td><td><span class="score ">47.9<span class="uncertainty"> ± 18.9</span></span></td><td><span class="score ">37.9<span class="uncertainty"> ± 12.3</span></span></td><td><span class="score second" title="Second-best mean">34.4<span class="uncertainty"> ± 5.3</span></span></td><td><span class="score ">58.8</span></td></tr><tr><th scope="row">OMAR</th><td><span class="score ">104.0<span class="uncertainty"> ± 3.4</span></span></td><td><span class="score ">29.3<span class="uncertainty"> ± 5.5</span></span></td><td><span class="score ">13.6<span class="uncertainty"> ± 5.7</span></span></td><td><span class="score ">6.3<span class="uncertainty"> ± 3.5</span></span></td><td><span class="score ">38.3</span></td></tr><tr><th scope="row">OMIGA</th><td><span class="score ">80.8<span class="uncertainty"> ± 13.8</span></span></td><td><span class="score ">30.1<span class="uncertainty"> ± 16.9</span></span></td><td><span class="score ">5.4<span class="uncertainty"> ± 11.0</span></span></td><td><span class="score ">−3.8<span class="uncertainty"> ± 12.3</span></span></td><td><span class="score ">28.1</span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">95.0<span class="uncertainty"> ± 5.3</span></span></td><td><span class="score ">64.9<span class="uncertainty"> ± 7.7</span></span></td><td><span class="score ">30.3<span class="uncertainty"> ± 2.5</span></span></td><td><span class="score ">6.9<span class="uncertainty"> ± 3.1</span></span></td><td><span class="score ">49.2</span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score ">101.7<span class="uncertainty"> ± 10.9</span></span></td><td><span class="score second" title="Second-best mean">80.1<span class="uncertainty"> ± 20.6</span></span></td><td><span class="score second" title="Second-best mean">50.4<span class="uncertainty"> ± 33.2</span></span></td><td><span class="score ">31.1<span class="uncertainty"> ± 6.8</span></span></td><td><span class="score second" title="Second-best mean">65.8</span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score ">104.40<span class="uncertainty"> ± 19.66</span></span></td><td><span class="score best" title="Best mean">95.97<span class="uncertainty"> ± 12.69</span></span></td><td><span class="score best" title="Best mean">54.12<span class="uncertainty"> ± 15.29</span></span></td><td><span class="score best" title="Best mean">75.92<span class="uncertainty"> ± 23.81</span></span></td><td><span class="score best" title="Best mean">82.6</span></td></tr></tbody></table></div>
+<p class="table-takeaway">MoSDOT leads on Medium, Medium-Replay, and Random; ICQ has the highest Expert mean.</p></section>
+<section id="panel-smac1" class="benchmark-panel" aria-labelledby="tab-smac1">
+<div class="panel-heading"><div><h3>SMACv1</h3><p>Five scenarios, three dataset qualities.</p></div><label class="scenario-control">View <select id="scenario-select"><option value="average">All scenarios · reported average</option>
+<option value="3m">3m</option>
+<option value="8m">8m</option>
+<option value="2s3z">2s3z</option>
+<option value="5m_vs_6m">5m_vs_6m</option>
+<option value="2c_vs_64zg">2c_vs_64zg</option>
+</select></label></div>
+<div class="scenario-panel" data-scenario="average"><h4 class="fallback-title">All scenarios · reported average</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 published average results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 published average. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Average <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">12.2</span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">5.5</span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">13.1</span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">13.0</span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">13.8</span></td></tr><tr><th scope="row">DoF</th><td><span class="score second" title="Second-best mean">15.6</span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score ">13.4</span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score second" title="Second-best mean">15.6</span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">16.7</span></td></tr></tbody></table></div></div>
+<div class="scenario-panel" data-scenario="3m"><h4 class="fallback-title">3m</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 / 3m results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 / 3m. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Good <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Poor <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">16.0<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score ">8.2<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score ">4.4<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">3.7<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score ">4.0<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score ">3.4<span class="uncertainty"> ± 1.0</span></span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">19.1<span class="uncertainty"> ± 0.1</span></span></td><td><span class="score ">13.7<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score ">4.2<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">19.5<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">13.3<span class="uncertainty"> ± 0.7</span></span></td><td><span class="score ">4.2<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">19.3<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">16.4<span class="uncertainty"> ± 2.6</span></span></td><td><span class="score ">10.3<span class="uncertainty"> ± 6.1</span></span></td></tr><tr><th scope="row">DoF</th><td><span class="score second" title="Second-best mean">19.8<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score second" title="Second-best mean">18.6<span class="uncertainty"> ± 1.2</span></span></td><td><span class="score second" title="Second-best mean">10.9<span class="uncertainty"> ± 1.1</span></span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score best" title="Best mean">20.0<span class="uncertainty"> ± 0.0</span></span></td><td><span class="score ">14.7<span class="uncertainty"> ± 1.5</span></span></td><td><span class="score ">4.5<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score second" title="Second-best mean">19.8<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score ">18.0<span class="uncertainty"> ± 3.2</span></span></td><td><span class="score ">10.6<span class="uncertainty"> ± 2.2</span></span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">20.0<span class="uncertainty"> ± 0.0</span></span></td><td><span class="score best" title="Best mean">18.8<span class="uncertainty"> ± 1.5</span></span></td><td><span class="score best" title="Best mean">16.4<span class="uncertainty"> ± 4.9</span></span></td></tr></tbody></table></div></div>
+<div class="scenario-panel" data-scenario="8m"><h4 class="fallback-title">8m</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 / 8m results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 / 8m. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Good <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Poor <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">16.7<span class="uncertainty"> ± 0.4</span></span></td><td><span class="score ">10.7<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">5.3<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">4.8<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score ">5.6<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score ">3.6<span class="uncertainty"> ± 0.8</span></span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">18.9<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score ">15.5<span class="uncertainty"> ± 1.5</span></span></td><td><span class="score ">7.5<span class="uncertainty"> ± 1.0</span></span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">19.4<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">18.6<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score ">4.8<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">18.9<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score ">16.8<span class="uncertainty"> ± 1.6</span></span></td><td><span class="score ">9.8<span class="uncertainty"> ± 0.9</span></span></td></tr><tr><th scope="row">DoF</th><td><span class="score ">19.6<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score ">18.6<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score best" title="Best mean">12.0<span class="uncertainty"> ± 1.2</span></span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score ">19.5<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score ">18.2<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score ">4.9<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score second" title="Second-best mean">19.7<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score second" title="Second-best mean">19.4<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score second" title="Second-best mean">11.5<span class="uncertainty"> ± 0.8</span></span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">20.0<span class="uncertainty"> ± 0.0</span></span></td><td><span class="score best" title="Best mean">20.0<span class="uncertainty"> ± 0.0</span></span></td><td><span class="score ">10.8<span class="uncertainty"> ± 0.8</span></span></td></tr></tbody></table></div></div>
+<div class="scenario-panel" data-scenario="2s3z"><h4 class="fallback-title">2s3z</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 / 2s3z results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 / 2s3z. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Good <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Poor <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">18.2<span class="uncertainty"> ± 0.4</span></span></td><td><span class="score ">12.3<span class="uncertainty"> ± 0.7</span></span></td><td><span class="score ">6.7<span class="uncertainty"> ± 0.3</span></span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">7.7<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score ">7.6<span class="uncertainty"> ± 0.7</span></span></td><td><span class="score ">6.6<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">17.4<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score ">15.6<span class="uncertainty"> ± 0.4</span></span></td><td><span class="score ">8.4<span class="uncertainty"> ± 0.8</span></span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">18.0<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score ">13.4<span class="uncertainty"> ± 1.4</span></span></td><td><span class="score ">6.2<span class="uncertainty"> ± 1.2</span></span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">15.9<span class="uncertainty"> ± 1.2</span></span></td><td><span class="score ">15.6<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score ">8.5<span class="uncertainty"> ± 1.3</span></span></td></tr><tr><th scope="row">DoF</th><td><span class="score ">18.5<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score second" title="Second-best mean">18.1<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score best" title="Best mean">10.0<span class="uncertainty"> ± 1.1</span></span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score second" title="Second-best mean">19.5<span class="uncertainty"> ± 0.1</span></span></td><td><span class="score ">15.1<span class="uncertainty"> ± 2.0</span></span></td><td><span class="score ">6.9<span class="uncertainty"> ± 0.8</span></span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score second" title="Second-best mean">19.5<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">17.6<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score ">8.5<span class="uncertainty"> ± 0.6</span></span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">20.1<span class="uncertainty"> ± 0.1</span></span></td><td><span class="score best" title="Best mean">18.2<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score second" title="Second-best mean">9.4<span class="uncertainty"> ± 0.8</span></span></td></tr></tbody></table></div></div>
+<div class="scenario-panel" data-scenario="5m_vs_6m"><h4 class="fallback-title">5m_vs_6m</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 / 5m_vs_6m results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 / 5m_vs_6m. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Good <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Poor <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">15.8<span class="uncertainty"> ± 3.6</span></span></td><td><span class="score ">12.4<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score ">7.5<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">2.4<span class="uncertainty"> ± 0.4</span></span></td><td><span class="score ">3.8<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">3.3<span class="uncertainty"> ± 0.5</span></span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">16.2<span class="uncertainty"> ± 1.6</span></span></td><td><span class="score ">15.1<span class="uncertainty"> ± 2.9</span></span></td><td><span class="score ">10.5<span class="uncertainty"> ± 3.1</span></span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">16.8<span class="uncertainty"> ± 2.3</span></span></td><td><span class="score ">12.5<span class="uncertainty"> ± 2.1</span></span></td><td><span class="score ">8.0<span class="uncertainty"> ± 1.0</span></span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">16.5<span class="uncertainty"> ± 2.8</span></span></td><td><span class="score ">15.2<span class="uncertainty"> ± 2.6</span></span></td><td><span class="score ">8.9<span class="uncertainty"> ± 1.3</span></span></td></tr><tr><th scope="row">DoF</th><td><span class="score ">17.7<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score second" title="Second-best mean">16.2<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score second" title="Second-best mean">10.8<span class="uncertainty"> ± 0.3</span></span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score ">14.7<span class="uncertainty"> ± 2.1</span></span></td><td><span class="score ">12.8<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score ">7.7<span class="uncertainty"> ± 0.8</span></span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score best" title="Best mean">18.6<span class="uncertainty"> ± 3.5</span></span></td><td><span class="score ">15.6<span class="uncertainty"> ± 1.3</span></span></td><td><span class="score ">9.8<span class="uncertainty"> ± 2.1</span></span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score second" title="Second-best mean">18.5<span class="uncertainty"> ± 1.9</span></span></td><td><span class="score best" title="Best mean">17.9<span class="uncertainty"> ± 1.2</span></span></td><td><span class="score best" title="Best mean">12.3<span class="uncertainty"> ± 0.9</span></span></td></tr></tbody></table></div></div>
+<div class="scenario-panel" data-scenario="2c_vs_64zg"><h4 class="fallback-title">2c_vs_64zg</h4>
+<div class="table-scroll" role="region" aria-label="SMACv1 / 2c_vs_64zg results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv1 / 2c_vs_64zg. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Good <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Medium <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Poor <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">17.5<span class="uncertainty"> ± 0.4</span></span></td><td><span class="score ">12.5<span class="uncertainty"> ± 0.3</span></span></td><td><span class="score ">9.7<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">10.1<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score ">9.9<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score ">9.0<span class="uncertainty"> ± 0.2</span></span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">12.9<span class="uncertainty"> ± 0.2</span></span></td><td><span class="score ">11.6<span class="uncertainty"> ± 0.1</span></span></td><td><span class="score ">10.2<span class="uncertainty"> ± 0.1</span></span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">17.8<span class="uncertainty"> ± 1.3</span></span></td><td><span class="score ">10.5<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score ">10.2<span class="uncertainty"> ± 2.3</span></span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">14.7<span class="uncertainty"> ± 2.2</span></span></td><td><span class="score ">12.8<span class="uncertainty"> ± 1.2</span></span></td><td><span class="score ">10.8<span class="uncertainty"> ± 1.1</span></span></td></tr><tr><th scope="row">DoF</th><td><span class="score ">16.1<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score ">13.9<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score best" title="Best mean">11.5<span class="uncertainty"> ± 1.1</span></span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score ">18.0<span class="uncertainty"> ± 1.3</span></span></td><td><span class="score ">11.8<span class="uncertainty"> ± 2.6</span></span></td><td><span class="score ">10.0<span class="uncertainty"> ± 0.3</span></span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score second" title="Second-best mean">19.1<span class="uncertainty"> ± 0.8</span></span></td><td><span class="score second" title="Second-best mean">14.9<span class="uncertainty"> ± 4.1</span></span></td><td><span class="score second" title="Second-best mean">11.4<span class="uncertainty"> ± 0.4</span></span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">20.2<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score best" title="Best mean">16.4<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score second" title="Second-best mean">11.4<span class="uncertainty"> ± 1.4</span></span></td></tr></tbody></table></div></div>
+<p class="table-takeaway">Reported average reward: MoSDOT 16.7; MAC-Flow and DoF 15.6. Select a scenario to inspect all means and uncertainties.</p></section>
+<section id="panel-smac2" class="benchmark-panel" aria-labelledby="tab-smac2">
+<div class="panel-heading"><div><h3>SMACv2</h3><p>Discrete actions · replay datasets</p></div><span class="source-tag">Paper · Table 2</span></div>
+<div class="table-scroll" role="region" aria-label="SMACv2 results, scroll horizontally" tabindex="0"><table><caption class="sr-only">SMACv2. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">terran_<wbr>5_<wbr>vs_<wbr>5 <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">zerg_<wbr>5_<wbr>vs_<wbr>5 <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">terran_<wbr>10_<wbr>vs_<wbr>10 <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Average <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">BC</th><td><span class="score ">7.3<span class="uncertainty"> ± 1.0</span></span></td><td><span class="score ">6.8<span class="uncertainty"> ± 0.6</span></span></td><td><span class="score ">7.4<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">7.2</span></td></tr><tr><th scope="row">MABCQ</th><td><span class="score ">13.8<span class="uncertainty"> ± 4.4</span></span></td><td><span class="score second" title="Second-best mean">10.3<span class="uncertainty"> ± 1.2</span></span></td><td><span class="score ">12.7<span class="uncertainty"> ± 2.0</span></span></td><td><span class="score ">12.3</span></td></tr><tr><th scope="row">MACQL</th><td><span class="score ">11.8<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score second" title="Second-best mean">10.3<span class="uncertainty"> ± 3.4</span></span></td><td><span class="score ">11.8<span class="uncertainty"> ± 2.0</span></span></td><td><span class="score ">11.3</span></td></tr><tr><th scope="row">Diffusion BC</th><td><span class="score ">9.3<span class="uncertainty"> ± 0.9</span></span></td><td><span class="score ">8.1<span class="uncertainty"> ± 1.7</span></span></td><td><span class="score ">5.5<span class="uncertainty"> ± 1.5</span></span></td><td><span class="score ">7.6</span></td></tr><tr><th scope="row">MADiff</th><td><span class="score ">13.3<span class="uncertainty"> ± 1.8</span></span></td><td><span class="score ">10.2<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score second" title="Second-best mean">13.8<span class="uncertainty"> ± 1.3</span></span></td><td><span class="score ">12.4</span></td></tr><tr><th scope="row">DoF</th><td><span class="score second" title="Second-best mean">15.4<span class="uncertainty"> ± 1.3</span></span></td><td><span class="score best" title="Best mean">12.0<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score best" title="Best mean">14.6<span class="uncertainty"> ± 1.1</span></span></td><td><span class="score best" title="Best mean">14.0</span></td></tr><tr><th scope="row">Flow BC</th><td><span class="score ">8.3<span class="uncertainty"> ± 1.9</span></span></td><td><span class="score ">4.6<span class="uncertainty"> ± 0.5</span></span></td><td><span class="score ">5.8<span class="uncertainty"> ± 1.7</span></span></td><td><span class="score ">6.2</span></td></tr><tr><th scope="row">MAC-Flow</th><td><span class="score best" title="Best mean">16.6<span class="uncertainty"> ± 4.3</span></span></td><td><span class="score ">9.8<span class="uncertainty"> ± 1.5</span></span></td><td><span class="score ">13.0<span class="uncertainty"> ± 4.7</span></span></td><td><span class="score second" title="Second-best mean">13.1</span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score best" title="Best mean">16.6<span class="uncertainty"> ± 4.3</span></span></td><td><span class="score ">9.7<span class="uncertainty"> ± 2.8</span></span></td><td><span class="score ">9.4<span class="uncertainty"> ± 2.6</span></span></td><td><span class="score ">11.9</span></td></tr></tbody></table></div>
+<p class="table-takeaway">DoF has the highest reported average (14.0), followed by MAC-Flow (13.1); MoSDOT reports 11.9.</p></section>
+<!-- BENCHMARK_TABLES_END -->
+          <div class="table-legend"><p>Mean ± 2σ · 6 seeds · higher is better</p><p><span class="legend-best">Bold</span> best mean <span class="legend-second">Underlined</span> second-best mean · ties included</p></div>
         </div>
-
-        <figure class="figure-frame hero-figure">
-          <img src="assets/figures/tables_benchmark.png" alt="Benchmark tables for SMACv1, SMACv2, and MPE Simple Spread.">
-          <figcaption>
-            Offline MARL benchmark summary across SMACv1, SMACv2, and MPE Simple Spread.
-            MoSDOT is especially strong on diverse continuous replay in MPE and competitive across discrete settings.
-          </figcaption>
-        </figure>
-
-        <div class="table-card" role="region" aria-label="Selected benchmark results" tabindex="0">
-          <table>
-            <thead>
-              <tr>
-                <th>Evaluation</th>
-                <th>MoSDOT</th>
-                <th>Reference</th>
-                <th>Takeaway</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Landmark teacher route consistency</td>
-                <td><strong>0.972</strong></td>
-                <td>Flow matching 0.856</td>
-                <td>Cleaner source-to-mode routing</td>
-              </tr>
-              <tr>
-                <td>Landmark student fan-free</td>
-                <td><strong>0.971</strong></td>
-                <td>Flow matching 0.849</td>
-                <td>Teacher geometry survives distillation</td>
-              </tr>
-              <tr>
-                <td>SMACv1 average reward</td>
-                <td><strong>16.7</strong></td>
-                <td>MAC-Flow 15.6 · DoF 15.6</td>
-                <td>Strong discrete-action average</td>
-              </tr>
-              <tr>
-                <td>SMACv2 average reward</td>
-                <td>11.9</td>
-                <td>DoF 14.0 · MAC-Flow 13.1</td>
-                <td>Competitive but not best on all regimes</td>
-              </tr>
-              <tr>
-                <td>MPE Simple Spread average</td>
-                <td><strong>82.6</strong></td>
-                <td>MAC-Flow 65.8 · ICQ 58.8</td>
-                <td>Clear gains on diverse continuous replay</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <p class="source-note">Tables 2–3 in the paper. Average columns reproduce the reported values without recalculation. <a href="assets/data/results.json" download>Download table data <span aria-hidden="true">↓</span></a><span class="scroll-hint">Swipe tables horizontally to see all columns.</span></p>
       </div>
     </section>
-
     <section class="section tinted" id="diagnostics">
       <div class="wrap">
-        <div class="section-head wide-head">
-          <p class="section-kicker">Diagnostics</p>
-          <h2>From teacher-side routes to factorized student policies.</h2>
-          <p>
-            Controlled diagnostics isolate three effects: teacher routing artifacts, projection errors
-            from decentralized distillation, and the residual strict-product gap.
-          </p>
+        <div class="section-head"><p class="section-kicker">04 / Looking closer</p><h2>What survives distillation?</h2><p>Controlled diagnostics separate teacher routing quality from the limits of independent local execution.</p></div>
+        <div class="diagnostic-heading"><span class="diagnostic-index">A</span><div><h3>Cleaner teachers, cleaner local policies.</h3><p>MoSDOT reduces fan mass between modes and retains the teacher’s ray structure after distillation.</p></div></div>
+        <figure class="figure-frame landmark-figure">
+          <a class="figure-link" href="assets/figures/original/fig4_1r.pdf" data-figure="assets/figures/landmark.webp" aria-label="Enlarge Figure 3: landmark trajectories"><img src="assets/figures/landmark.webp" width="2400" height="1047" loading="lazy" alt="Landmark trajectories compare Flow Matching, IMLE, Drifting, and MoSDOT. Joint teachers are on the top row and factored students on the bottom. MoSDOT preserves narrow rays to valid modes."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 3</span><p><strong>Teacher → student.</strong> Top: centralized teacher rollouts. Bottom: one-step factorized students with independent local noise. Black crosses mark the six anchor mode endpoints.</p></figcaption>
+        </figure>
+        <div class="diagnostic-table"><div class="panel-heading"><div><h3>Endpoint quality and routing consistency</h3><p>Joint-teacher landmark diagnostics · Table 1 · mean over 4 seeds</p></div></div>
+          <!-- TEACHER_TABLE_START -->
+<div class="table-scroll" role="region" aria-label="Joint-teacher landmark diagnostics results, scroll horizontally" tabindex="0"><table><caption class="sr-only">Joint-teacher landmark diagnostics. Higher is better.</caption><thead><tr><th scope="col">Method</th><th scope="col">Fan-free <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Route consistency <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Success <span class="arrow" aria-label="higher is better">↑</span></th><th scope="col">Balance <span class="arrow" aria-label="higher is better">↑</span></th></tr></thead><tbody><tr><th scope="row">Flow matching</th><td><span class="score ">0.857</span></td><td><span class="score ">0.856</span></td><td><span class="score ">0.915</span></td><td><span class="score ">0.917</span></td></tr><tr><th scope="row">IMLE</th><td><span class="score best" title="Best mean">0.991</span></td><td><span class="score second" title="Second-best mean">0.857</span></td><td><span class="score ">0.848</span></td><td><span class="score ">0.761</span></td></tr><tr><th scope="row">Drifting</th><td><span class="score ">0.952</span></td><td><span class="score ">0.653</span></td><td><span class="score second" title="Second-best mean">0.985</span></td><td><span class="score second" title="Second-best mean">0.936</span></td></tr><tr class="ours"><th scope="row">MoSDOT <span class="ours-label">Ours</span></th><td><span class="score second" title="Second-best mean">0.983</span></td><td><span class="score best" title="Best mean">0.972</span></td><td><span class="score best" title="Best mean">0.991</span></td><td><span class="score best" title="Best mean">0.961</span></td></tr></tbody></table></div>
+<!-- TEACHER_TABLE_END -->
+          <p class="table-takeaway">IMLE has the highest fan-free score. MoSDOT has the highest route consistency, success, and balance. Bold marks the best mean; underlining marks the second-best.</p>
         </div>
-
-        <div class="feature-grid">
-          <figure class="figure-frame">
-            <img src="assets/figures/fig3_landmark.png" alt="Landmark policy trajectories comparing Flow Matching, IMLE, Drifting, and MoSDOT teachers and students.">
-            <figcaption>Landmark trajectories: MoSDOT reduces fan mass and retains ray structure after decentralized distillation.</figcaption>
-          </figure>
-          <figure class="figure-frame">
-            <img src="assets/figures/fig6_xor.png" alt="XOR strict-product visualization showing target support, MAC-Flow, MoSDOT without shared signal, and MoSDOT with shared signal.">
-            <figcaption>XOR diagnostic: shared randomness lets decentralized actors agree on mode selection.</figcaption>
-          </figure>
-          <figure class="figure-frame">
-            <img src="assets/figures/fig7_teacher_student.png" alt="Joint mode-tuple support bars for teacher and student across MoSDOT, Flow Matching, IMLE, and Drift.">
-            <figcaption>Mode-tuple support: MoSDOT preserves validity and balance from teacher to student.</figcaption>
-          </figure>
-          <figure class="figure-frame">
-            <img src="assets/figures/alg1_mosdot.png" alt="Pseudocode for MoSDOT strict-product variant.">
-            <figcaption>Algorithm: mode-support SDOT alignment and decentralized distillation.</figcaption>
-          </figure>
-        </div>
+        <div class="diagnostic-heading second-diagnostic"><span class="diagnostic-index">B</span><div><h3>A clean teacher still has an execution limit.</h3><p>On XOR, independent local sampling cannot preserve the correlated target support. A shared mode-selection signal lets local actors coordinate.</p></div></div>
+        <figure class="figure-frame">
+          <a class="figure-link" href="assets/figures/original/fig3_rr.pdf" data-figure="assets/figures/xor.webp" aria-label="Enlarge Figure 6: XOR strict-product diagnostic"><img src="assets/figures/xor.webp" width="2400" height="605" loading="lazy" alt="Four XOR panels: target support, MAC-Flow, MoSDOT without shared signal, and MoSDOT with shared signal. The last panel concentrates both teacher and student samples on the two valid opposite-sign tuples."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 6</span><p><strong>Isolating the strict-product gap.</strong> (a) Target support. (b) MAC-Flow. (c) MoSDOT without a shared signal. (d) MoSDOT with a shared signal. Blue: factored student; pink: joint teacher.</p></figcaption>
+        </figure>
+        <details class="more-diagnostics"><summary>More evidence: joint mode-tuple support <span aria-hidden="true">+</span></summary><figure class="figure-frame">
+          <a class="figure-link" href="assets/figures/original/joint_mode_support_grid_v2.pdf" data-figure="assets/figures/mode-support.webp" aria-label="Enlarge Figure 7: joint mode-tuple support"><img src="assets/figures/mode-support.webp" width="2400" height="1166" loading="lazy" alt="Bars compare teacher and student mass assigned to joint mode tuples for Flow, IMLE, Drift, and MoSDOT."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 7</span><p>Joint mode-tuple support before and after distillation. The original appendix figure reports fractions over 32,768 samples.</p></figcaption>
+        </figure></details>
       </div>
     </section>
-
     <section class="section" id="citation">
-      <div class="wrap citation-wrap">
-        <div>
-          <p class="section-kicker">Citation</p>
-          <h2>BibTeX</h2>
-          <p class="prose">Replace the author, venue, and archive fields after the public version is available.</p>
-        </div>
-        <div class="code-card">
-          <button class="copy-btn" type="button" data-copy-target="bibtex">Copy</button>
-          <pre id="bibtex"><code>@misc{anonymous2026mosdot,
-  title  = {Multi-Agent Coordination via Support-Preserving Distillation},
-  author = {Anonymous Author(s)},
-  year   = {2026},
-  note   = {Submitted to NeurIPS 2026}
-}</code></pre>
-        </div>
-      </div>
+      <div class="wrap citation-wrap"><div><p class="section-kicker">05 / Reference</p><h2>Cite this work.</h2><p class="prose">Accepted to NeurIPS 2026.<br>Sangmin Lee, Youngju Na, Chanmi Lee, and Sung-eui Yoon · KAIST.</p><a class="text-link" href="assets/paper/paper.pdf" target="_blank" rel="noopener">Read the manuscript <span aria-hidden="true">↗</span></a></div>
+        <div class="code-card"><div class="code-toolbar"><span>BibTeX <span class="citation-status">· NeurIPS 2026</span></span><button class="copy-btn" type="button" data-copy-target="bibtex">Copy</button></div><pre id="bibtex"><code>@inproceedings{lee2026mosdot,
+  title = {Multi-Agent Coordination via
+           Support-Preserving Distillation},
+  author = {Sangmin Lee and Youngju Na and
+            Chanmi Lee and Sung-eui Yoon},
+  booktitle = {Advances in Neural Information
+               Processing Systems},
+  year = {2026}
+}</code></pre><p class="copy-status" role="status" aria-live="polite"></p></div></div>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="wrap footer-grid">
-      <p>2026 MoSDOT. Static project page prepared for GitHub Pages.</p>
-      <p><a href="https://github.com/alex6095/mosdot">GitHub repository</a></p>
-    </div>
-  </footer>
-
-  <script src="assets/js/main.js?v=20260629-redesign"></script>
+  <footer class="footer"><div class="wrap footer-grid"><a class="brand" href="#top">MoSDOT <span class="footer-year">/ 2026</span></a><p>Multi-Agent Coordination via Support-Preserving Distillation</p><a href="https://github.com/alex6095/mosdot">Page source <span aria-hidden="true">↗</span></a></div></footer>
+  <dialog class="figure-dialog" aria-labelledby="viewer-title"><div class="viewer-toolbar"><h2 id="viewer-title">Figure</h2><div><button class="viewer-zoom" type="button" aria-pressed="false">Zoom in</button><a class="viewer-original" href="assets/figures/original/fig1_rrrr.pdf" target="_blank" rel="noopener">Original PDF ↗</a><button class="viewer-close" type="button" aria-label="Close figure viewer">Close <span aria-hidden="true">×</span></button></div></div><div class="viewer-scroll" tabindex="0" aria-label="Figure image, scroll when zoomed"><img class="viewer-image" alt=""></div><p class="viewer-caption"></p></dialog>
 </body>
 </html>
