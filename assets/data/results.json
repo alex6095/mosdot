@@ -12,7 +12,7 @@
     ],
     "benchmarkSeeds": 6,
     "uncertainty": "2 standard deviations",
-    "manuscriptSha256": "4ab934edc9ec072cdcf227876c37c817a69f21ea1fab73a142f9f9b31f97ac78",
+    "manuscriptSha256": "3d375a5a6af72c2e7a1c163f55f7f91b5e3d83fde82a79269b9a885ac7ef6abf",
     "sourceArchive": "_Camera_ready__Multi_Agent_Coordination_via_Support_Preserving_Distillation.zip",
     "sourceArchiveSha256": "9b093b680139eb9e31d02297140ca8251c26a923ea6dc36388fd671332e9a7cb"
   },

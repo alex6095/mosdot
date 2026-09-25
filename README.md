@@ -25,7 +25,7 @@ Open <http://127.0.0.1:8000/>. The figure viewer, benchmark tabs, SMACv1 scenari
 - `assets/data/figures.json`: source filenames and SHA-256 hashes for the five figures.
 - `assets/figures/original/`: unmodified figure PDFs from the user-provided Camera-ready source ZIP.
 - `assets/figures/*.webp`: lossless 2400px-wide renderings of those PDFs. Figure artwork and internal labels are unchanged.
-- `assets/paper/paper.pdf`: the supplied manuscript, unchanged.
+- `assets/paper/paper.pdf`: the final PDF compiled from the Camera-ready Overleaf project on September 26, 2026, with all four authors, one shared KAIST affiliation, and Sung-eui Yoon marked as corresponding author.
 
 The source of record is `_Camera_ready__Multi_Agent_Coordination_via_Support_Preserving_Distillation.zip`, supplied on September 25, 2026. Its hash is recorded in `results.json`. Authors and acceptance status were supplied directly by the author.
 
@@ -60,10 +60,10 @@ python3 scripts/verify_content.py \
 
 ## Public release status
 
-The webpage now has the confirmed authors and NeurIPS 2026 acceptance. **The supplied PDF still contains anonymous authors, line numbers, and the submission-format “Do not distribute” footer.** Replace it with the final public manuscript and update its recorded hash before release. This is an artifact mismatch; the webpage changes do not edit the paper or Overleaf.
+The webpage and linked PDF show the confirmed authors and NeurIPS 2026 acceptance. The PDF uses the official `neurips_2026` style with `[main,final]`; the shared-affiliation author block was compiled in Overleaf and checked visually. `results.json` records the exact PDF hash.
 
 The research-code URL and arXiv/proceedings URL have not been supplied. The code availability label remains “Coming soon”; the footer's “Page source” links to this website repository. Add final proceedings identifiers when available.
 
-This revision is prepared locally on `design/publication-refresh`; it does not update production until merged/pushed to the branch configured for GitHub Pages.
+The GitHub Pages site serves the `main` branch. Changes to the linked PDF become public after pushing to that branch and the Pages build completes.
 
 See [QA.md](QA.md) for the verification record.

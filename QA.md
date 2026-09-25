@@ -31,6 +31,6 @@ Visually inspected in Chrome at 1440px desktop, 768px tablet, 390px mobile, and 
 
 `python3 scripts/verify_content.py` validates local assets and fragment links, duplicate IDs, source hashes, and generated-table consistency. Optional source arguments also verify all numeric data and original PDFs. `node --check assets/js/main.js` passes.
 
-## Before publication
+## PDF release check
 
-Replace the supplied anonymous submission-format PDF with the final public version. Research-code and archive/proceedings URLs can be added when supplied. No production deployment was performed during this local review.
+The final PDF replaced the anonymous submission-format PDF on September 26, 2026. It was compiled in Overleaf with `[main,final]`; page 1 was rendered and visually checked for the four authors, shared KAIST affiliation, all four emails, and corresponding-author marker. The 26-page PDF passed the same benchmark and teacher-value checks as the earlier manuscript. Research-code and archive/proceedings URLs can be added when supplied.
