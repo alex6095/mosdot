@@ -35,3 +35,5 @@ Visually inspected in Chrome at 1440px desktop, 768px tablet, 390px mobile, and 
 ## PDF release check
 
 The final PDF replaced the anonymous submission-format PDF on September 26, 2026. It was compiled in Overleaf with `[main,final]`; page 1 was rendered and visually checked for the four authors, shared KAIST affiliation, all four emails, and corresponding-author marker. The 26-page PDF passed the same benchmark and teacher-value checks as the earlier manuscript. Research-code and archive/proceedings URLs can be added when supplied.
+
+On September 26, 2026, the `\best` macro was updated to apply bold math fonts to table scores. The refreshed 26-page PDF's page 9 was rendered and visually checked: best scores are bold and second-best scores retain their underline. All 194 benchmark score cells and 26 average cells were checked against their row ranks, including ties; there were no ranking-label mismatches.
