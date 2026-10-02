@@ -37,3 +37,12 @@ Visually inspected in Chrome at 1440px desktop, 768px tablet, 390px mobile, and 
 The final PDF replaced the anonymous submission-format PDF on September 26, 2026. It was compiled in Overleaf with `[main,final]`; page 1 was rendered and visually checked for the four authors, shared KAIST affiliation, all four emails, and corresponding-author marker. The 26-page PDF passed the same benchmark and teacher-value checks as the earlier manuscript. Research-code and archive/proceedings URLs can be added when supplied.
 
 On September 26, 2026, the `\best` macro was updated to apply bold math fonts to table scores. The refreshed 26-page PDF's page 9 was rendered and visually checked: best scores are bold and second-best scores retain their underline. All 194 benchmark score cells and 26 average cells were checked against their row ranks, including ties; there were no ranking-label mismatches.
+
+## Readability pass
+
+October 2, 2026 (KST): text sizes were raised for desktop reading next to the paper; only `assets/css/styles.css` values and its cache-busting query changed. No content, data, or script changed.
+
+- Desktop (1440px): reading text is now 15–17px (figure captions, method steps, table cells, takeaways, diagnostics, citation). Labels and metadata are 12–13px, and only `†` markers, the `Ours` tag, and `FIG.` numbers stay below 12px.
+- Mobile (≤720px): text that was 8–11px is now 11–14px; the scenario `<select>` is 16px so iOS does not zoom on focus.
+- Muted greys that measured under 4.5:1 (header meta, metric labels, table arrows, uncertainty, legend, source tags, "Coming soon", footer year) were darkened. An automated audit of every visible text run now finds no text under 4.5:1 except the 45px "Better routes." heading (3.7:1, above the 3:1 large-text threshold).
+- Rechecked in headless Chromium at 1440, 1024, 390, and 320px: no page-level horizontal overflow; the MPE table still fits without scrolling at 1440px, and wide tables scroll inside their cards on mobile.
