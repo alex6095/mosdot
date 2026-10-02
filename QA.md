@@ -46,3 +46,10 @@ October 2, 2026 (KST): text sizes were raised for desktop reading next to the pa
 - Mobile (≤720px): text that was 8–11px is now 11–14px; the scenario `<select>` is 16px so iOS does not zoom on focus.
 - Muted greys that measured under 4.5:1 (header meta, metric labels, table arrows, uncertainty, legend, source tags, "Coming soon", footer year) were darkened. An automated audit of every visible text run now finds no text under 4.5:1 except the 45px "Better routes." heading (3.7:1, above the 3:1 large-text threshold).
 - Rechecked in headless Chromium at 1440, 1024, 390, and 320px: no page-level horizontal overflow; the MPE table still fits without scrolling at 1440px, and wide tables scroll inside their cards on mobile.
+
+October 2, 2026 (KST), follow-up: body text was still small on Windows desktops, where `Inter` was not installed and the page fell back to Segoe UI.
+
+- The page now loads Inter (text cut, `wght` 400–800) from Google Fonts, so type renders at the intended size on every platform.
+- Reading text was raised one more step on desktop: body 17px, lead and section intros 18px, captions, method steps, and table cells 16px. Table headers, uncertainty, takeaways, and legends are 14–15px.
+- `tabular-nums` now applies only to score cells; method names and column headers use normal figures, so hyphens no longer widen ("MAC-Flow", "Medium-Replay").
+- `scripts/verify_content.py` passes; no horizontal overflow at 1440, 390, or 320px.
