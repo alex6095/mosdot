@@ -177,7 +177,29 @@
       .querySelectorAll("main > section")
       .forEach((section) => observer.observe(section));
   }
-  // VIDEO:js — the landmark figure's animation plays while on screen; its own small button pauses it.
+  // VIDEO:js — overview: a clean poster and one start button; the browser's controls appear once it plays.
+  document.querySelectorAll(".promo-media").forEach((box) => {
+    const v = box.querySelector("video");
+    const start = box.querySelector(".promo-start");
+    if (!v || !start) return;
+    v.controls = false;
+    start.addEventListener("click", () => {
+      box.classList.add("is-started");
+      v.controls = true;
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+      v.focus({ preventScroll: true });
+    });
+    v.addEventListener("play", () => {
+      box.classList.add("is-started");
+      v.controls = true;
+    });
+    v.addEventListener("ended", () => {
+      box.classList.remove("is-started");
+      v.controls = false;
+    });
+  });
+  // the landmark figure's animation plays while on screen; its own small button pauses it.
   document.querySelectorAll(".figure-video").forEach((fig) => {
     const v = fig.querySelector("video");
     const btn = fig.querySelector(".fig-toggle");
