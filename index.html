@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261005v">
-  <script src="assets/js/main.js?v=20261005v" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261006d">
+  <script src="assets/js/main.js?v=20261006d" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -33,22 +33,21 @@
   <main id="main">
     <section class="hero" id="top">
       <div class="wrap hero-inner">
-        <p class="venue-badge"><span aria-hidden="true"></span>Accepted to NeurIPS 2026</p>
+        <p class="venue">NeurIPS 2026</p>
         <p class="wordmark">MoSDOT</p>
         <h1>Multi-Agent Coordination <br>via <span>Support-Preserving Distillation</span></h1>
-        <p class="subtitle">Better coordination starts with a better teacher.<br class="desktop-break"> Align source noise with joint-action modes, then distill into local one-step policies.</p>
-        <div class="authors"><p><span>Sangmin Lee</span><span>Youngju Na</span><span>Chanmi Lee</span><span>Sung-eui Yoon<sup class="corresponding-marker" aria-label="Corresponding author">†</sup></span></p><p class="affiliation">KAIST</p><p class="corresponding-note"><sup>†</sup>Corresponding author</p></div>
+        <div class="authors"><p><span>Sangmin Lee</span><a href="https://youngju-na.github.io/">Youngju Na</a><a href="https://chan-mi-lee.github.io/">Chanmi Lee</a><span><a href="https://sgvr.kaist.ac.kr/~sungeui/">Sung-eui Yoon</a><sup class="corresponding-marker" aria-label="Corresponding author">†</sup></span></p><p class="affiliation">KAIST</p><p class="corresponding-note"><sup>†</sup>Corresponding author</p></div>
         <div class="cta-row" aria-label="Project links">
           <a class="btn primary" href="assets/paper/paper.pdf?v=d50636b" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v5h4 M9 12h6 M9 16h6"/></svg>Paper PDF <span aria-hidden="true">↗</span></a>
           <!-- VIDEO:cta --><a class="btn" href="#video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Video</a>
           <!-- /VIDEO:cta --><a class="btn" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16 M8 16v-4 M13 16V8 M18 16V4"/></svg>Explore results</a>
           <span class="btn unavailable">Code <span class="soon">Coming soon</span></span>
         </div>
-        <figure class="figure-frame teaser">
-          <a class="figure-link" href="assets/figures/original/fig1_rrrr.pdf" data-figure="assets/figures/overview.webp" aria-label="Enlarge Figure 1: source-to-mode routing"><img src="assets/figures/overview.webp" width="2400" height="661" fetchpriority="high" alt="Flow Policy scatters source trajectories between modes; MoSDOT organizes the same space into capacity-matched regions. A radar plot compares four teacher diagnostics."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
-          <figcaption><span class="figure-number">Fig. 1</span><p><strong>Give every noise sample a coordinated destination.</strong> MoSDOT assigns source regions to replay-derived modes before teacher training, reducing off-support mass and improving routing consistency.</p></figcaption>
+        <figure class="figure-frame teaser hero-still">
+          <a class="figure-link" href="assets/figures/landmark-still.png" data-figure="assets/figures/landmark-still.webp" aria-label="Enlarge the landmark diagnostic"><img src="assets/figures/landmark-still.webp" width="2400" height="1132" fetchpriority="high" alt="Landmark diagnostic, 128 rollouts per panel. Joint teachers on the top row, one-step factored students on the bottom, for Flow matching, IMLE, Drifting and MoSDOT. Red rollouts start between the two valid landmarks: Flow matching 17% and 13%, IMLE 2% and 22%, Drifting 3% and 80%, MoSDOT 1% and 2%."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><p><strong>Teacher → student on the landmark diagnostic.</strong> 128 rollouts per panel from the runs in the paper figure; red marks a first step that heads between the two valid landmarks. Baseline students fan out between modes; MoSDOT's students keep the teacher's routes.</p></figcaption>
         </figure>
-        <div class="hero-meta"><span>Offline multi-agent RL</span><span>Centralized training · decentralized execution</span><span>Semi-discrete optimal transport</span></div>
+        <div class="tldr"><p><strong>TL;DR</strong> Better coordination starts with a better teacher: align source noise with joint-action modes, then distill into local one-step policies.</p></div>
       </div>
     </section>
 <!-- VIDEO:promo -->    <section class="section video-section" id="video">
@@ -68,8 +67,12 @@
     </section>
 <!-- /VIDEO:promo -->    <section class="section" id="overview">
       <div class="wrap">
-        <div class="claim-grid"><div><p class="section-kicker">01 / The idea</p><h2>Good endpoints.<br><span class="muted-heading">Better routes.</span></h2></div>
+        <div class="claim-grid"><div><p class="section-kicker">The idea</p><h2>Good endpoints.<br>Better routes.</h2></div>
           <div class="prose lead"><p>A centralized teacher can reach valid joint-action modes yet still assign nearby noise samples to conflicting behaviors. Local actors can inherit these artifacts during distillation, producing actions between valid modes.</p><p><strong>MoSDOT organizes the source-to-mode assignment first.</strong> Capacity-matched transport gives the teacher cleaner targets and preserves more of the support that decentralized actors can recover.</p><p class="boundary-note">A clean teacher does not remove the strict-product gap: independent local policies cannot represent every correlated joint distribution. We study shared randomness separately.</p></div></div>
+        <figure class="figure-frame overview-figure">
+          <a class="figure-link" href="assets/figures/original/fig1_rrrr.pdf" data-figure="assets/figures/overview.webp" aria-label="Enlarge Figure 1: source-to-mode routing"><img loading="lazy" src="assets/figures/overview.webp" width="2400" height="661" alt="Flow Policy scatters source trajectories between modes; MoSDOT organizes the same space into capacity-matched regions. A radar plot compares four teacher diagnostics."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Fig. 1</span><p><strong>Give every noise sample a coordinated destination.</strong> MoSDOT assigns source regions to replay-derived modes before teacher training, reducing off-support mass and improving routing consistency.</p></figcaption>
+        </figure>
         <div class="highlight-strip" aria-label="Selected results from the paper">
           <a href="#diagnostics"><span class="metric-context">Landmark · teacher</span><strong>0.972</strong><span>Route consistency</span><small>vs. 0.856 · Flow matching</small></a>
           <a href="#diagnostics"><span class="metric-context">Landmark · teacher</span><strong>0.983</strong><span>Fan-free endpoints</span><small>vs. 0.857 · Flow matching</small></a>
@@ -81,7 +84,7 @@
     </section>
     <section class="section tinted" id="method">
       <div class="wrap">
-        <div class="section-head"><p class="section-kicker">02 / The method</p><h2>Align. Train. Distill.</h2><p>A structured source assignment before teacher training.<br>One-step local actors at execution.</p></div>
+        <div class="section-head"><p class="section-kicker">The method</p><h2>Align. Train. Distill.</h2><p>A structured source assignment before teacher training.<br>One-step local actors at execution.</p></div>
         <figure class="figure-frame">
           <a class="figure-link" href="assets/figures/original/fig2_81.pdf" data-figure="assets/figures/framework.webp" aria-label="Enlarge Figure 2: MoSDOT framework"><img src="assets/figures/framework.webp" width="2400" height="641" loading="lazy" alt="Replay joint actions become mode support and capacities. Conditional SDOT assigns source noise to modes. A centralized teacher is distilled into local actors, optionally with shared randomness."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
           <figcaption><span class="figure-number">Fig. 2</span><p><strong>The MoSDOT framework.</strong> Transport operates on coordinated joint-action modes. Each distilled actor uses its own observation and noise; the shared-randomness variant additionally supplies a common signal <i>h</i>.</p></figcaption>
@@ -96,7 +99,7 @@
     </section>
     <section class="section" id="results">
       <div class="wrap">
-        <div class="section-head"><p class="section-kicker">03 / Benchmark results</p><h2>Coordination across<br>different kinds of replay.</h2><p>Strong gains on diverse continuous replay, with results that vary by discrete-action regime. Explore every baseline and dataset below.</p></div>
+        <div class="section-head"><p class="section-kicker">Benchmark results</p><h2>Coordination across<br>different kinds of replay.</h2><p>Strong gains on diverse continuous replay, with results that vary by discrete-action regime. Explore every baseline and dataset below.</p></div>
         <div class="benchmark-controls" aria-label="Choose benchmark">
           <button type="button" class="benchmark-tab" id="tab-mpe" data-benchmark="mpe" aria-controls="panel-mpe">MPE <span>Continuous</span></button>
           <button type="button" class="benchmark-tab" id="tab-smac1" data-benchmark="smac1" aria-controls="panel-smac1">SMACv1 <span>Discrete</span></button>
@@ -138,7 +141,7 @@
         </div>
         <p class="source-note">Tables 2–3 in the paper. Average columns reproduce the reported values without recalculation. <a href="assets/data/results.json" download>Download table data <span aria-hidden="true">↓</span></a><span class="scroll-hint">Swipe tables horizontally to see all columns.</span></p><!-- VIDEO:rollouts -->
         <div class="rollouts">
-          <div class="diagnostic-heading"><span class="diagnostic-index">▶</span><div><h3>MoSDOT in action.</h3><p>Decentralized one-step actors on every benchmark, MoSDOT only. StarCraft II clips are rendered by the game engine itself during evaluation (MoSDOT red, built-in AI blue). Each clip shows the first episodes in order, not selected. Checkpoints were re-trained from the paper configurations; each clip gives the paper score.</p></div></div>
+          <div class="diagnostic-heading"><div><h3>MoSDOT in action.</h3><p>Decentralized one-step actors on every benchmark, MoSDOT only. StarCraft II clips are rendered by the game engine itself during evaluation (MoSDOT red, built-in AI blue). Each clip shows the first episodes in order, not selected. Checkpoints were re-trained from the paper configurations; each clip gives the paper score.</p></div></div>
           <div class="roll-tabs" role="tablist" aria-label="Benchmark">
             <button class="roll-tab" type="button" role="tab" id="roll-tab-mpe" aria-controls="roll-mpe" aria-selected="true" tabindex="0" data-roll="mpe">MPE <span>4 clips</span></button>
             <button class="roll-tab" type="button" role="tab" id="roll-tab-smac1" aria-controls="roll-smac1" aria-selected="false" tabindex="-1" data-roll="smac1">SMACv1 <span>5 clips</span></button>
@@ -384,7 +387,7 @@
     </section>
     <section class="section tinted" id="diagnostics">
       <div class="wrap">
-        <div class="section-head"><p class="section-kicker">04 / Looking closer</p><h2>What survives distillation?</h2><p>Controlled diagnostics separate teacher routing quality from the limits of independent local execution.</p></div>
+        <div class="section-head"><p class="section-kicker">Looking closer</p><h2>What survives distillation?</h2><p>Controlled diagnostics separate teacher routing quality from the limits of independent local execution.</p></div>
         <div class="diagnostic-heading"><span class="diagnostic-index">A</span><div><h3>Cleaner teachers, cleaner local policies.</h3><p>MoSDOT reduces fan mass between modes and retains the teacher’s ray structure after distillation.</p></div></div>
         <figure class="figure-frame landmark-figure">
           <!-- VIDEO:landmark --><div class="figure-video">
@@ -415,7 +418,7 @@
       </div>
     </section>
     <section class="section" id="citation">
-      <div class="wrap citation-wrap"><div><p class="section-kicker">05 / Reference</p><h2>Cite this work.</h2><p class="prose">Accepted to NeurIPS 2026.<br>Sangmin Lee, Youngju Na, Chanmi Lee, and Sung-eui Yoon · KAIST.</p><a class="text-link" href="assets/paper/paper.pdf?v=d50636b" target="_blank" rel="noopener">Read the manuscript <span aria-hidden="true">↗</span></a></div>
+      <div class="wrap citation-wrap"><div><p class="section-kicker">Reference</p><h2>Cite this work.</h2><p class="prose">Accepted to NeurIPS 2026.<br>Sangmin Lee, Youngju Na, Chanmi Lee, and Sung-eui Yoon · KAIST.</p><a class="text-link" href="assets/paper/paper.pdf?v=d50636b" target="_blank" rel="noopener">Read the manuscript <span aria-hidden="true">↗</span></a></div>
         <div class="code-card"><div class="code-toolbar"><span>BibTeX <span class="citation-status">· NeurIPS 2026</span></span><button class="copy-btn" type="button" data-copy-target="bibtex">Copy</button></div><pre id="bibtex"><code>@inproceedings{lee2026mosdot,
   title = {Multi-Agent Coordination via
            Support-Preserving Distillation},
