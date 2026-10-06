@@ -1,0 +1,145 @@
+WEBVTT
+
+00:00:00.650 --> 00:00:02.880
+When several agents must coordinate,
+
+00:00:02.900 --> 00:00:05.550
+there is rarely one right answer.
+
+00:00:06.155 --> 00:00:09.255
+Here, each agent has two valid landmarks.
+
+00:00:09.885 --> 00:00:12.735
+Averaging between them leads nowhere.
+
+00:00:13.600 --> 00:00:17.080
+Offline multi-agent RL increasingly trains
+
+00:00:17.100 --> 00:00:19.130
+a centralized generative teacher
+
+00:00:19.150 --> 00:00:21.717
+over joint actions, then distills it
+
+00:00:21.737 --> 00:00:24.130
+into fast, one-step students
+
+00:00:24.150 --> 00:00:27.075
+that act on local information only.
+
+00:00:27.883 --> 00:00:30.133
+The problem starts in the teacher.
+
+00:00:30.738 --> 00:00:32.830
+Standard flow matching pairs noise
+
+00:00:32.850 --> 00:00:34.556
+with targets at random,
+
+00:00:34.576 --> 00:00:36.781
+so nearby noise samples are pulled
+
+00:00:36.801 --> 00:00:39.538
+toward different coordination modes.
+
+00:00:40.118 --> 00:00:42.793
+The teacher leaves mass between modes.
+
+00:00:43.373 --> 00:00:45.215
+And because distillation regresses
+
+00:00:45.235 --> 00:00:47.828
+each student onto a conditional mean,
+
+00:00:47.848 --> 00:00:50.298
+that error is not absorbed.
+
+00:00:50.878 --> 00:00:52.628
+It is inherited.
+
+00:00:53.467 --> 00:00:55.172
+MoSDOT fixes the assignment
+
+00:00:55.192 --> 00:00:56.792
+before training.
+
+00:00:57.372 --> 00:00:58.977
+It summarizes the replay
+
+00:00:58.997 --> 00:01:00.715
+into a finite mode support
+
+00:01:00.735 --> 00:01:03.890
+with capacities, then solves a conditional
+
+00:01:03.910 --> 00:01:07.247
+semi-discrete optimal transport problem.
+
+00:01:07.877 --> 00:01:10.070
+Noise space is split into cells,
+
+00:01:10.090 --> 00:01:11.695
+one per joint mode,
+
+00:01:11.715 --> 00:01:14.652
+each holding exactly its share of mass.
+
+00:01:15.232 --> 00:01:16.962
+The teacher then learns clean routes
+
+00:01:16.982 --> 00:01:18.832
+from noise to modes.
+
+00:01:19.617 --> 00:01:22.667
+The cleaner routing survives distillation.
+
+00:01:23.297 --> 00:01:25.814
+MoSDOT students keep 97%
+
+00:01:25.834 --> 00:01:28.202
+of their actions on valid modes,
+
+00:01:28.222 --> 00:01:31.739
+while baseline students leave 15 to 64%
+
+00:01:31.759 --> 00:01:33.922
+of theirs between modes.
+
+00:01:34.767 --> 00:01:37.022
+Some coordination cannot be represented
+
+00:01:37.042 --> 00:01:39.172
+by independent agents at all,
+
+00:01:39.192 --> 00:01:41.442
+like this XOR task.
+
+00:01:42.072 --> 00:01:44.815
+A shared random signal lets agents agree
+
+00:01:44.835 --> 00:01:47.052
+on a mode without communicating,
+
+00:01:47.072 --> 00:01:49.997
+which isolates this strict-product gap.
+
+00:01:50.808 --> 00:01:53.551
+On offline multi-agent benchmarks,
+
+00:01:53.571 --> 00:01:54.988
+MoSDOT is competitive
+
+00:01:55.008 --> 00:01:57.588
+with strong generative baselines,
+
+00:01:57.608 --> 00:01:59.513
+with the clearest gains when the data
+
+00:01:59.533 --> 00:02:02.383
+contains diverse joint behavior.
+
+00:02:03.233 --> 00:02:05.576
+Multi-Agent Coordination via
+
+00:02:05.596 --> 00:02:08.008
+Support-Preserving Distillation.

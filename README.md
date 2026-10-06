@@ -8,6 +8,22 @@ Project page for **Multi-Agent Coordination via Support-Preserving Distillation*
 
 Production: <https://alex6095.github.io/mosdot/>
 
+<!-- VIDEO:readme -->
+## Videos
+
+[![MoSDOT overview video](assets/videos/mosdot_promo_poster.jpg)](https://alex6095.github.io/mosdot/#video)
+
+Two-minute overview (click to play on the project page). Below: MoSDOT's decentralized one-step actors on the benchmarks, from policies re-trained with the paper configurations; MoSDOT only, episodes in order after a fixed seed. StarCraft II clips are rendered by the game itself.
+
+| Landmark diagnostic, the paper figure's runs: teachers (top) vs distilled students (bottom) | MPE Simple Spread (Medium data) |
+| --- | --- |
+| ![Landmark diagnostic, the paper figure's runs: teachers (top) vs distilled students (bottom)](assets/videos/readme/landmark_rollouts_paper.gif) | ![MPE Simple Spread (Medium data)](assets/videos/readme/mpe_spread_medium.gif) |
+| SMACv1 2c_vs_64zg (Good data), real StarCraft II | SMACv1 3m (Poor data), real StarCraft II |
+| ![SMACv1 2c_vs_64zg (Good data), real StarCraft II](assets/videos/readme/smac_2c_vs_64zg_sc2.gif) | ![SMACv1 3m (Poor data), real StarCraft II](assets/videos/readme/smac_3m_sc2.gif) |
+| SMACv2 zerg_5_vs_5, real StarCraft II |
+| ![SMACv2 zerg_5_vs_5, real StarCraft II](assets/videos/readme/smacv2_zerg_5_vs_5_sc2.gif) |
+<!-- /VIDEO:readme -->
+
 A dependency-free HTML/CSS/JavaScript site, served directly by GitHub Pages. No framework or deployment build step is required.
 
 ## Preview

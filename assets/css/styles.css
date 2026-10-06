@@ -1382,6 +1382,607 @@ tbody tr:last-child > * {
     max-height: 55dvh;
   }
 }
+/* VIDEO:css */
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #fff;
+}
+.video-frame figcaption {
+  font-size: 15px;
+  padding: 14px 20px;
+}
+.video-section .promo-frame {
+  box-shadow: 0 14px 40px #4e32720a;
+}
+.method-videos,
+.xor-video {
+  margin-top: 36px;
+}
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 8px;
+}
+.video-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 22px 0 6px;
+}
+/* landmark figure: the animation takes the image's place; the static figure opens from the corner link */
+.figure-video {
+  position: relative;
+  padding: 26px 40px 30px;
+  background: #fff;
+}
+.figure-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #fff;
+}
+.static-figure-link {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted, #676273);
+  text-decoration: none;
+}
+.static-figure-link:hover,
+.static-figure-link:focus-visible {
+  color: var(--brand, #6941ce);
+}
+@media (max-width: 900px) {
+  .video-grid,
+  .video-grid.three {
+    grid-template-columns: 1fr;
+  }
+  .figure-video {
+    padding: 14px 10px 26px;
+  }
+}
+/* landmark figure: its own small pause / play control, opposite the paper-figure link */
+.fig-toggle {
+  position: absolute;
+  left: 14px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  border: 0;
+  background: none;
+  color: var(--muted, #676273);
+  font-size: 12px;
+  font-weight: 600;
+}
+.fig-toggle:hover,
+.fig-toggle:focus-visible {
+  color: var(--brand, #6941ce);
+}
+.fig-toggle svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
+}
+.fig-toggle .i-play,
+.figure-video.is-paused .fig-toggle .i-pause {
+  display: none;
+}
+.figure-video.is-paused .fig-toggle .i-play {
+  display: block;
+}
+html:not(.enhanced) .fig-toggle {
+  display: none;
+}
+/* rollouts: benchmark tabs and one carousel per benchmark.
+   Transform-driven track (eased slide, drag and swipe), centred clip large with neighbours scaled and dimmed,
+   custom play / pause / full-screen controls instead of the browser's controls bar. Without JS the panels fall
+   back to plain scroll strips with native controls. */
+.rollouts {
+  margin-top: 56px;
+  --car-w: 72%;
+  --car-gap: 22px;
+  --car-ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --car-dur: 0.62s;
+}
+.roll-tabs {
+  display: none;
+  gap: 6px;
+  padding: 5px;
+  margin: 4px 0 26px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #f7f5fa;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.enhanced .roll-tabs {
+  display: flex;
+}
+.roll-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.roll-tab span {
+  font-size: 12px;
+  font-weight: 450;
+  color: #6b6180;
+}
+.roll-tab:hover {
+  color: var(--text);
+}
+.roll-tab[aria-selected="true"] {
+  background: #fff;
+  color: var(--brand);
+  border-color: var(--line);
+  box-shadow: 0 2px 5px #44305b08;
+}
+.roll-panel-title {
+  margin: 28px 0 12px;
+  font-size: 17px;
+}
+.enhanced .roll-panel-title {
+  display: none;
+}
+.enhanced .roll-panel:not(.is-current) {
+  display: none;
+}
+.enhanced .roll-panel {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s var(--car-ease);
+}
+.enhanced .roll-panel.is-entering {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* stage */
+.carousel {
+  position: relative;
+  border-radius: var(--radius);
+}
+.car-viewport {
+  overflow: hidden;
+  /* room for the centred card's shadow */
+  padding: 10px 0 36px;
+  margin: -10px 0 -36px;
+  touch-action: pan-y;
+}
+.car-track {
+  display: flex;
+  gap: var(--car-gap);
+  transition: transform var(--car-dur) var(--car-ease);
+  will-change: transform;
+}
+.car-track.no-anim,
+.is-dragging .car-track {
+  transition: none;
+}
+.is-dragging .car-viewport {
+  cursor: grabbing;
+}
+.car-slide {
+  position: relative;
+  flex: 0 0 var(--car-w);
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  transition:
+    opacity var(--car-dur) var(--car-ease),
+    transform var(--car-dur) var(--car-ease),
+    box-shadow var(--car-dur) var(--car-ease);
+}
+.enhanced .car-slide {
+  opacity: 0.45;
+  transform: scale(0.92);
+}
+.enhanced .car-slide:not(.is-active) {
+  cursor: pointer;
+}
+.enhanced .car-slide:not(.is-active):hover {
+  opacity: 0.68;
+}
+.enhanced .car-slide.is-active {
+  opacity: 1;
+  transform: none;
+  box-shadow:
+    0 24px 54px -24px #2a1b4570,
+    0 3px 10px #2a1b4512;
+}
+.car-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #f3f1f7;
+}
+.car-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+
+/* paused: a light scrim behind the big play button */
+.car-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1a122814;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.car-slide.is-active.is-paused .car-media::after {
+  opacity: 1;
+}
+/* big play button: shown on the centred clip whenever it is paused */
+.car-play {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  margin: auto;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffffed;
+  color: var(--brand);
+  box-shadow:
+    0 14px 36px #1d123547,
+    0 2px 6px #1d123526;
+  opacity: 0;
+  transform: scale(0.86);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s var(--car-ease),
+    background-color 0.2s;
+}
+.car-play svg {
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  fill: currentColor;
+}
+.car-slide.is-active.is-paused .car-play {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.car-slide.is-active.is-paused .car-play:hover {
+  background: #fff;
+  transform: scale(1.06);
+}
+
+/* caption bar with the clip's controls */
+.car-slide figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 12px 10px 18px;
+  border-top: 1px solid var(--line);
+}
+.car-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  min-width: 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+.car-title strong {
+  font-weight: 650;
+  color: var(--text);
+}
+.car-title span {
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.car-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s 0.3s;
+}
+.car-slide.is-active .car-actions {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.3s ease 0.15s,
+    visibility 0s;
+}
+html:not(.enhanced) .car-actions,
+html:not(.enhanced) .car-play {
+  display: none;
+}
+.car-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: #4a4459;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.car-icon:hover {
+  background: var(--tint);
+  color: var(--brand);
+  border-color: #dcd1f1;
+}
+.car-icon svg {
+  width: 17px;
+  height: 17px;
+}
+.car-icon .i-fill {
+  fill: currentColor;
+}
+.car-icon .i-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.car-toggle .i-play,
+.car-slide.is-paused .car-toggle .i-pause {
+  display: none;
+}
+.car-slide.is-paused .car-toggle .i-play {
+  display: block;
+}
+
+/* previous / next: white discs on the centred clip's edges, vertically centred on the video */
+.car-navs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--media-h, 0px);
+  pointer-events: none;
+  z-index: 2;
+}
+html:not(.enhanced) .car-navs,
+html:not(.enhanced) .car-foot {
+  display: none;
+}
+.car-nav {
+  position: absolute;
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #2a1b4514;
+  border-radius: 50%;
+  background: #ffffffed;
+  color: var(--text);
+  box-shadow:
+    0 12px 30px -8px #2a1b4552,
+    0 2px 6px #2a1b4514;
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  transition:
+    transform 0.25s var(--car-ease),
+    box-shadow 0.25s,
+    color 0.2s,
+    background-color 0.2s,
+    opacity 0.3s ease,
+    visibility 0s;
+}
+.car-nav svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.car-prev {
+  left: calc((100% - var(--car-w)) / 2);
+}
+.car-next {
+  left: calc((100% + var(--car-w)) / 2);
+}
+.car-nav:hover {
+  color: var(--brand);
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1.07);
+  box-shadow:
+    0 16px 34px -8px #2a1b4566,
+    0 3px 8px #2a1b451c;
+}
+.car-nav:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+.car-nav:disabled {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(0.8);
+  transition:
+    transform 0.25s var(--car-ease),
+    opacity 0.3s ease,
+    visibility 0s 0.3s;
+}
+
+/* dots: the current one stretches into a pill */
+.car-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.car-dots {
+  display: flex;
+  align-items: center;
+}
+.car-dot {
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 26px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+}
+.car-dot::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d8d1e5;
+  transition:
+    width 0.42s var(--car-ease),
+    background-color 0.3s;
+}
+.car-dot:hover::before {
+  background: #b7a9d6;
+}
+.car-dot[aria-current="true"]::before {
+  width: 26px;
+  background: var(--brand);
+}
+.car-count {
+  min-width: 3em;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* without JS: plain horizontal strips with the browser's controls */
+html:not(.enhanced) .car-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+html:not(.enhanced) .car-slide {
+  scroll-snap-align: center;
+}
+
+@media (max-width: 720px) {
+  .rollouts {
+    --car-w: 80%;
+    --car-gap: 10px;
+  }
+  .roll-tabs {
+    width: 100%;
+  }
+  .roll-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 6px;
+  }
+  .roll-tab span {
+    display: none;
+  }
+  .car-nav {
+    display: none;
+  }
+  .car-slide figcaption {
+    min-height: 54px;
+    padding: 9px 10px 9px 14px;
+  }
+  .car-title {
+    font-size: 14px;
+  }
+  .car-title span {
+    font-size: 13px;
+  }
+  .car-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .car-play {
+    width: 60px;
+    height: 60px;
+  }
+  .car-play svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* reduced motion: shorter, flatter transitions instead of none (the page's global rule would remove them all) */
+@media (prefers-reduced-motion: reduce) {
+  .rollouts .car-track {
+    transition: transform 0.28s ease-out !important;
+  }
+  .rollouts .car-track.no-anim,
+  .rollouts .is-dragging .car-track {
+    transition: none !important;
+  }
+  .enhanced .rollouts .car-slide {
+    transform: none;
+    transition: opacity 0.28s ease-out !important;
+  }
+  .rollouts .roll-panel {
+    transition: opacity 0.2s ease-out !important;
+  }
+  .rollouts .roll-panel.is-entering {
+    transform: none;
+  }
+  .rollouts .car-dot::before {
+    transition: width 0.2s ease-out !important;
+  }
+  .rollouts .car-play,
+  .rollouts .car-nav,
+  .rollouts .car-actions {
+    transition: opacity 0.2s ease-out !important;
+  }
+}
+/* /VIDEO:css */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
