@@ -27,119 +27,149 @@ into fast, one-step students
 00:00:24.150 --> 00:00:27.075
 that act on local information only.
 
-00:00:27.883 --> 00:00:30.133
+00:00:27.883 --> 00:00:29.388
+Two cars must pass a rock
+
+00:00:29.408 --> 00:00:31.233
+from opposite sides.
+
+00:00:31.838 --> 00:00:33.193
+Each car, on its own,
+
+00:00:33.213 --> 00:00:35.163
+can go above or below.
+
+00:00:35.718 --> 00:00:37.510
+But only the pair decides:
+
+00:00:37.530 --> 00:00:39.123
+opposite sides get through,
+
+00:00:39.143 --> 00:00:41.268
+the same side collides.
+
+00:00:41.848 --> 00:00:44.353
+The valid pairs, weighted by how often
+
+00:00:44.373 --> 00:00:45.803
+they appear in the data,
+
+00:00:45.823 --> 00:00:47.873
+form the mode support.
+
+00:00:48.683 --> 00:00:50.933
 The problem starts in the teacher.
 
-00:00:30.738 --> 00:00:32.830
+00:00:51.538 --> 00:00:53.630
 Standard flow matching pairs noise
 
-00:00:32.850 --> 00:00:34.556
+00:00:53.650 --> 00:00:55.356
 with targets at random,
 
-00:00:34.576 --> 00:00:36.781
+00:00:55.376 --> 00:00:57.581
 so nearby noise samples are pulled
 
-00:00:36.801 --> 00:00:39.538
+00:00:57.601 --> 00:01:00.338
 toward different coordination modes.
 
-00:00:40.118 --> 00:00:42.793
+00:01:00.918 --> 00:01:03.593
 The teacher leaves mass between modes.
 
-00:00:43.373 --> 00:00:45.215
+00:01:04.173 --> 00:01:06.015
 And because distillation regresses
 
-00:00:45.235 --> 00:00:47.828
+00:01:06.035 --> 00:01:08.628
 each student onto a conditional mean,
 
-00:00:47.848 --> 00:00:50.298
+00:01:08.648 --> 00:01:11.098
 that error is not absorbed.
 
-00:00:50.878 --> 00:00:52.628
+00:01:11.678 --> 00:01:13.428
 It is inherited.
 
-00:00:53.467 --> 00:00:55.172
+00:01:14.267 --> 00:01:15.972
 MoSDOT fixes the assignment
 
-00:00:55.192 --> 00:00:56.792
+00:01:15.992 --> 00:01:17.592
 before training.
 
-00:00:57.372 --> 00:00:58.977
+00:01:18.172 --> 00:01:19.777
 It summarizes the replay
 
-00:00:58.997 --> 00:01:00.715
+00:01:19.797 --> 00:01:21.515
 into a finite mode support
 
-00:01:00.735 --> 00:01:03.890
+00:01:21.535 --> 00:01:24.690
 with capacities, then solves a conditional
 
-00:01:03.910 --> 00:01:07.247
+00:01:24.710 --> 00:01:28.047
 semi-discrete optimal transport problem.
 
-00:01:07.877 --> 00:01:10.070
+00:01:28.677 --> 00:01:30.870
 Noise space is split into cells,
 
-00:01:10.090 --> 00:01:11.695
+00:01:30.890 --> 00:01:32.495
 one per joint mode,
 
-00:01:11.715 --> 00:01:14.652
+00:01:32.515 --> 00:01:35.452
 each holding exactly its share of mass.
 
-00:01:15.232 --> 00:01:16.962
+00:01:36.032 --> 00:01:37.762
 The teacher then learns clean routes
 
-00:01:16.982 --> 00:01:18.832
+00:01:37.782 --> 00:01:39.632
 from noise to modes.
 
-00:01:19.617 --> 00:01:22.667
+00:01:40.417 --> 00:01:43.467
 The cleaner routing survives distillation.
 
-00:01:23.297 --> 00:01:25.814
+00:01:44.097 --> 00:01:46.614
 MoSDOT students keep 97%
 
-00:01:25.834 --> 00:01:28.202
+00:01:46.634 --> 00:01:49.002
 of their actions on valid modes,
 
-00:01:28.222 --> 00:01:31.739
+00:01:49.022 --> 00:01:52.539
 while baseline students leave 15 to 64%
 
-00:01:31.759 --> 00:01:33.922
+00:01:52.559 --> 00:01:54.722
 of theirs between modes.
 
-00:01:34.767 --> 00:01:37.022
+00:01:55.567 --> 00:01:57.822
 Some coordination cannot be represented
 
-00:01:37.042 --> 00:01:39.172
+00:01:57.842 --> 00:01:59.972
 by independent agents at all,
 
-00:01:39.192 --> 00:01:41.442
+00:01:59.992 --> 00:02:02.242
 like this XOR task.
 
-00:01:42.072 --> 00:01:44.815
+00:02:02.872 --> 00:02:05.615
 A shared random signal lets agents agree
 
-00:01:44.835 --> 00:01:47.052
+00:02:05.635 --> 00:02:07.852
 on a mode without communicating,
 
-00:01:47.072 --> 00:01:49.997
+00:02:07.872 --> 00:02:10.797
 which isolates this strict-product gap.
 
-00:01:50.808 --> 00:01:53.551
+00:02:11.608 --> 00:02:14.351
 On offline multi-agent benchmarks,
 
-00:01:53.571 --> 00:01:54.988
+00:02:14.371 --> 00:02:15.788
 MoSDOT is competitive
 
-00:01:55.008 --> 00:01:57.588
+00:02:15.808 --> 00:02:18.388
 with strong generative baselines,
 
-00:01:57.608 --> 00:01:59.513
+00:02:18.408 --> 00:02:20.313
 with the clearest gains when the data
 
-00:01:59.533 --> 00:02:02.383
+00:02:20.333 --> 00:02:23.183
 contains diverse joint behavior.
 
-00:02:03.233 --> 00:02:05.576
+00:02:24.033 --> 00:02:26.376
 Multi-Agent Coordination via
 
-00:02:05.596 --> 00:02:08.008
+00:02:26.396 --> 00:02:28.808
 Support-Preserving Distillation.
