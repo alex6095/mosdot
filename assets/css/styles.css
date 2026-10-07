@@ -1328,6 +1328,44 @@ tbody tr:last-child > * {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 22px 0 6px;
 }
+/* header loop: the picture is the poster; the video of the layout on screen plays over it like a GIF */
+.hero-media {
+  position: relative;
+  padding: 30px 30px 34px;
+  background: #fff;
+}
+.hero-stage {
+  position: relative;
+}
+.hero-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+}
+.hero-tall {
+  display: none;
+}
+@media (max-width: 720px) {
+  .hero-media {
+    padding: 19px 12px 32px;
+  }
+}
+@media (max-width: 540px) {
+  .hero-wide {
+    display: none;
+  }
+  .hero-tall {
+    display: block;
+  }
+}
 /* landmark figure: the animation takes the image's place; the static figure opens from the corner link */
 .figure-video {
   position: relative;
@@ -1483,10 +1521,12 @@ html:not(.enhanced) .promo-start {
   fill: currentColor;
 }
 .fig-toggle .i-play,
-.figure-video.is-paused .fig-toggle .i-pause {
+.figure-video.is-paused .fig-toggle .i-pause,
+.hero-media.is-paused .fig-toggle .i-pause {
   display: none;
 }
-.figure-video.is-paused .fig-toggle .i-play {
+.figure-video.is-paused .fig-toggle .i-play,
+.hero-media.is-paused .fig-toggle .i-play {
   display: block;
 }
 html:not(.enhanced) .fig-toggle {

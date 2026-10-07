@@ -248,6 +248,62 @@
     }
     document.addEventListener("visibilitychange", sync);
   });
+  // header loop: plays like a GIF while on screen; only the layout shown at this width (wide | tall) loads.
+  document.querySelectorAll(".hero-media").forEach((box) => {
+    const vids = [...box.querySelectorAll("video")];
+    const btn = box.querySelector(".fig-toggle");
+    if (!vids.length) return;
+    const inView = new Map();
+    let userPaused = false;
+    const shown = () => vids.find((v) => inView.get(v)) || vids.find((v) => v.offsetParent !== null);
+    const label = () => {
+      const v = shown();
+      const playing = !!v && !v.paused;
+      box.classList.toggle("is-paused", !playing);
+      if (!btn) return;
+      btn.setAttribute("aria-label", playing ? "Pause animation" : "Play animation");
+      btn.querySelector("span").textContent = playing ? "Pause" : "Play";
+    };
+    const sync = () => {
+      vids.forEach((v) => {
+        if (inView.get(v) && !userPaused && document.visibilityState === "visible") {
+          v.preload = "auto";
+          const p = v.play();
+          if (p && p.catch) p.catch(label);
+        } else if (!v.paused) v.pause();
+      });
+    };
+    vids.forEach((v) => {
+      v.muted = true;
+      v.addEventListener("play", label);
+      v.addEventListener("pause", label);
+    });
+    if (btn)
+      btn.addEventListener("click", () => {
+        const v = shown();
+        userPaused = !!v && !v.paused;
+        if (userPaused) vids.forEach((x) => x.pause());
+        else if (v) {
+          v.preload = "auto";
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});
+        }
+      });
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => inView.set(en.target, en.isIntersecting));
+          sync();
+        },
+        { threshold: 0.2 },
+      );
+      vids.forEach((v) => io.observe(v));
+    } else {
+      vids.forEach((v) => inView.set(v, v.offsetParent !== null));
+      sync();
+    }
+    document.addEventListener("visibilitychange", sync);
+  });
   // other muted loops (opt-in sections): play while on screen
   const otherLoops = [...document.querySelectorAll("video.autoplay-loop")].filter((v) => !v.closest(".figure-video"));
   if (otherLoops.length && "IntersectionObserver" in window) {

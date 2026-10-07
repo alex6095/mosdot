@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261006d">
-  <script src="assets/js/main.js?v=20261006d" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261007a">
+  <script src="assets/js/main.js?v=20261007a" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,9 +43,20 @@
           <!-- /VIDEO:cta --><a class="btn" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16 M8 16v-4 M13 16V8 M18 16V4"/></svg>Explore results</a>
           <span class="btn unavailable">Code <span class="soon">Coming soon</span></span>
         </div>
-        <figure class="figure-frame teaser hero-still">
-          <a class="figure-link" href="assets/figures/landmark-still.png" data-figure="assets/figures/landmark-still.webp" aria-label="Enlarge the landmark diagnostic"><img src="assets/figures/landmark-still.webp" width="2400" height="1132" fetchpriority="high" alt="Landmark diagnostic, 128 rollouts per panel. Joint teachers on the top row, one-step factored students on the bottom, for Flow matching, IMLE, Drifting and MoSDOT. Red rollouts start between the two valid landmarks: Flow matching 17% and 13%, IMLE 2% and 22%, Drifting 3% and 80%, MoSDOT 1% and 2%."><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
-          <figcaption><p><strong>Teacher → student on the landmark diagnostic.</strong> 128 rollouts per panel from the runs in the paper figure; red marks a first step that heads between the two valid landmarks. Baseline students fan out between modes; MoSDOT's students keep the teacher's routes.</p></figcaption>
+        <figure class="figure-frame teaser hero-loop">
+          <!-- VIDEO:hero --><div class="hero-media">
+            <div class="hero-stage">
+              <picture><source media="(max-width: 540px)" srcset="assets/videos/hero_loop_tall_poster.jpg" width="1080" height="1440"><img src="assets/videos/hero_loop_wide_poster.jpg" width="2400" height="1132" alt="" fetchpriority="high"></picture>
+              <video class="hero-video hero-wide" muted loop playsinline disablepictureinpicture preload="none" width="2400" height="1132" aria-label="Animation, about 18 seconds, repeating. First, two flow teachers trained on the same 2D toy target move noise samples to eight modes: flow matching, with random noise-target pairing, leaves 7.3% of samples between modes; MoSDOT, with SDOT pairing, 3.3%. Then landmark rollouts for joint teachers and factored students; off-support rollouts: Flow matching 17% and 13%, IMLE 2% and 22%, Drifting 3% and 80%, MoSDOT 1% and 2%.">
+                <source src="assets/videos/hero_loop_wide.mp4" type="video/mp4">
+              </video>
+              <video class="hero-video hero-tall" muted loop playsinline disablepictureinpicture preload="none" width="1080" height="1440" aria-label="Animation, about 18 seconds, repeating. First, two flow teachers trained on the same 2D toy target move noise samples to eight modes: flow matching, with random noise-target pairing, leaves 7.3% of samples between modes; MoSDOT, with SDOT pairing, 3.3%. Then landmark rollouts for joint teachers and factored students; off-support rollouts: Flow matching 17% and 13%, MoSDOT 1% and 2%.">
+                <source src="assets/videos/hero_loop_tall.mp4" type="video/mp4">
+              </video>
+            </div>
+            <button class="fig-toggle" type="button" aria-label="Pause animation"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="4.4" height="15" rx="1.4"/><rect x="13.6" y="4.5" width="4.4" height="15" rx="1.4"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4a1 1 0 0 0 1.53.85l11.4-7.2a1 1 0 0 0 0-1.7L8.53 3.95A1 1 0 0 0 7 4.8z"/></svg><span>Pause</span></button>
+          </div><!-- /VIDEO:hero -->
+          <figcaption><p><strong>Teacher routing, then distillation.</strong> First a 2D toy with trained flow teachers: flow matching pairs noise with targets at random, MoSDOT by SDOT. Then the landmark diagnostic, replaying the paper figure's runs: joint teachers and the one-step students distilled from them. Red marks off-support samples, between valid modes.</p></figcaption>
         </figure>
         <div class="tldr"><p><strong>TL;DR</strong> Better coordination starts with a better teacher: align source noise with joint-action modes, then distill into local one-step policies.</p></div>
       </div>
