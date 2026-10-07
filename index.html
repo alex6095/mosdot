@@ -65,7 +65,16 @@
         </figure>
       </div>
     </section>
-<!-- /VIDEO:promo -->    <section class="section" id="overview">
+<!-- /VIDEO:promo --><!-- VIDEO:modes -->    <section class="section" id="modes">
+      <div class="wrap">
+        <div class="section-head"><p class="section-kicker">The problem</p><h2>A coordination mode<br>belongs to the team.</h2><p>Each agent alone has good options. Only some combinations work together, and those combinations are what the teacher must learn and the students must keep.</p></div>
+        <figure class="figure-frame modes-figure">
+          <a class="figure-link" href="assets/figures/two-car-modes.png" data-figure="assets/figures/two-car-modes.webp" aria-label="Enlarge the two-car example"><picture><source media="(max-width: 700px)" srcset="assets/figures/two-car-modes-tall.webp"><img loading="lazy" src="assets/figures/two-car-modes.webp" width="2400" height="1272" alt="Two cars must pass a rock from opposite sides. Left: the joint action space; each car alone goes above or below, but only the opposite-side pairs, modes A and B, are valid; same-side pairs collide and the average drives both cars into the rock. Right: flow matching leaves samples between the modes, splitting each car's own noise reaches head-on pairs 48% of the time, and MoSDOT splits the noise diagonally into one cell per joint mode."></picture><span class="enlarge" aria-hidden="true">↗ Expand figure</span></a>
+          <figcaption><span class="figure-number">Example</span><p><strong>Modes are pairs, not single choices.</strong> Either car may pass above or below the rock; only opposite sides get through. Flow matching leaves samples between the two modes, splitting each car's own noise reaches head-on pairs, and MoSDOT gives each joint mode its own noise cell, sized by how often the mode occurs in the data.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+<!-- /VIDEO:modes -->    <section class="section" id="overview">
       <div class="wrap">
         <div class="claim-grid"><div><p class="section-kicker">The idea</p><h2>Good endpoints.<br>Better routes.</h2></div>
           <div class="prose lead"><p>A centralized teacher can reach valid joint-action modes yet still assign nearby noise samples to conflicting behaviors. Local actors can inherit these artifacts during distillation, producing actions between valid modes.</p><p><strong>MoSDOT organizes the source-to-mode assignment first.</strong> Capacity-matched transport gives the teacher cleaner targets and preserves more of the support that decentralized actors can recover.</p><p class="boundary-note">A clean teacher does not remove the strict-product gap: independent local policies cannot represent every correlated joint distribution. We study shared randomness separately.</p></div></div>
