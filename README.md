@@ -8,6 +8,8 @@ Project page for **Multi-Agent Coordination via Support-Preserving Distillation*
 
 Production: <https://alex6095.github.io/mosdot/>
 
+Paper: <https://arxiv.org/abs/2610.10087>
+
 <!-- VIDEO:readme -->
 ## Videos
 
@@ -41,9 +43,9 @@ Open <http://127.0.0.1:8000/>. The figure viewer, benchmark tabs, SMACv1 scenari
 - `assets/data/figures.json`: source filenames and SHA-256 hashes for the five figures.
 - `assets/figures/original/`: unmodified figure PDFs from the user-provided Camera-ready source ZIP.
 - `assets/figures/*.webp`: lossless 2400px-wide renderings of those PDFs. Figure artwork and internal labels are unchanged.
-- `assets/paper/paper.pdf`: the 24-page arXiv submission PDF prepared on October 7, 2026, using the NeurIPS `[main,final]` style with the checklist omitted. It is byte-identical to `mosdot_arxiv.pdf` in the author's submission package.
+- `assets/paper/paper.pdf`: retained local copy of the 24-page arXiv submission PDF prepared on October 7, 2026, using the NeurIPS `[main,final]` style with the checklist omitted. It is byte-identical to `mosdot_arxiv.pdf` in the author's submission package. Public Paper links now lead to the official arXiv record instead of this copy.
 
-The webpage's table and figure assets originate from `_Camera_ready__Multi_Agent_Coordination_via_Support_Preserving_Distillation.zip`, supplied on September 25, 2026. Its hash is recorded in `results.json`. The linked manuscript was updated separately on October 7, 2026; this PDF replacement does not change the webpage's tables, figures, or videos. Authors and acceptance status were supplied directly by the author.
+The webpage's table and figure assets originate from `_Camera_ready__Multi_Agent_Coordination_via_Support_Preserving_Distillation.zip`, supplied on September 25, 2026. Its hash is recorded in `results.json`. The local manuscript copy was updated separately on October 7, 2026, and public Paper links were switched to arXiv on October 8, 2026; these changes do not change the webpage's tables, figures, or videos. Authors and acceptance status were supplied directly by the author.
 
 | Web figure | Paper | Overleaf source |
 | --- | --- | --- |
@@ -76,10 +78,10 @@ python3 scripts/verify_content.py \
 
 ## Public release status
 
-The webpage and linked PDF show the confirmed authors and NeurIPS 2026 acceptance. The PDF uses the official `neurips_2026` style with `[main,final]` and omits the checklist for arXiv. `results.json` records the exact linked PDF hash. Paper links use a hash-based query parameter to avoid serving a cached older manuscript.
+The webpage shows the confirmed authors and NeurIPS 2026 acceptance. All public Paper links point to <https://arxiv.org/abs/2610.10087>, where readers can access the abstract, PDF, and version history. The retained local PDF uses the official `neurips_2026` style with `[main,final]` and omits the checklist for arXiv. `results.json` records the exact retained local PDF hash, not a hash of the arXiv-hosted PDF.
 
-The research-code URL and arXiv/proceedings URL have not been supplied. The code availability label remains “Coming soon”; the footer's “Page source” links to this website repository. Add final proceedings identifiers when available.
+The research-code URL and final proceedings URL have not been supplied. The code availability label remains “Coming soon”; the footer's “Page source” links to this website repository. Add final proceedings identifiers when available.
 
-The GitHub Pages site serves the `main` branch. Changes to the linked PDF become public after pushing to that branch and the Pages build completes.
+The GitHub Pages site serves the `main` branch. Website changes become public after pushing to that branch and the Pages build completes; updates to the arXiv manuscript are managed separately on arXiv.
 
 See [QA.md](QA.md) for the verification record.
