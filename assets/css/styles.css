@@ -2159,6 +2159,7 @@ html:not(.enhanced) .car-slide {
     gap: 5px 20px;
   }
   .cta-row .unavailable {
+    grid-column: 1 / -1;
     flex-basis: 100%;
     border: 0;
     background: none;
@@ -2166,6 +2167,18 @@ html:not(.enhanced) .car-slide {
     padding: 2px;
   }
   .cta-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 380px;
+    margin-inline: auto;
     row-gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cta-row .btn {
+    padding-inline: 8px;
+    font-size: 13px;
+    gap: 6px;
   }
 }
