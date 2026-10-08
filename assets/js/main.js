@@ -23,7 +23,28 @@
       navToggle.focus();
     }
   });
-  matchMedia("(min-width: 721px)").addEventListener("change", closeMenu);
+  matchMedia("(min-width: 901px)").addEventListener("change", closeMenu);
+
+  // Keep native fragment links/history; only the home action drops its fragment.
+  const cleanHomeURL = () => location.pathname + location.search;
+  const normalizeTop = () => {
+    if (location.hash !== "#top") return;
+    history.replaceState(history.state, "", cleanHomeURL());
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+  document.querySelectorAll("[data-scroll-top]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      closeMenu();
+      if (location.hash) history.pushState(null, "", cleanHomeURL());
+      document.querySelector(".site-header .brand").focus({ preventScroll: true });
+      window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    });
+  });
+  normalizeTop();
+  window.addEventListener("hashchange", normalizeTop);
+  window.addEventListener("pageshow", normalizeTop);
 
   const tabs = [...document.querySelectorAll("[data-benchmark]")];
   const tablist = document.querySelector(".benchmark-controls");
@@ -158,25 +179,55 @@
     });
   });
 
-  if ("IntersectionObserver" in window) {
-    const links = [...navLinks.querySelectorAll("a")];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          links.forEach((link) => {
-            if (link.hash === "#" + entry.target.id)
-              link.setAttribute("aria-current", "location");
-            else link.removeAttribute("aria-current");
-          });
-        });
-      },
-      { rootMargin: "-12% 0px -60% 0px", threshold: 0 },
-    );
-    document
-      .querySelectorAll("main > section")
-      .forEach((section) => observer.observe(section));
+  // Use the same measured header/content edges for anchors and the active TOC.
+  // This also distinguishes the nested rollout gallery from its results section.
+  const header = document.querySelector(".site-header");
+  const topLink = document.querySelector(".back-to-top");
+  const sectionLinks = [...navLinks.querySelectorAll("a")];
+  const sectionStarts = sectionLinks.map((link) => {
+    const section = document.getElementById(link.hash.slice(1));
+    return section.querySelector(":scope > .wrap, :scope > .diagnostic-heading") || section;
+  });
+  let headerHeight = 0;
+  let currentSection = -2;
+  let navigationFrame = 0;
+  function updateNavigation() {
+    navigationFrame = 0;
+    const measured = header.getBoundingClientRect().height;
+    if (measured !== headerHeight) {
+      headerHeight = measured;
+      document.documentElement.style.setProperty("--header-height", `${measured}px`);
+    }
+    const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--anchor-gap"));
+    const line = headerHeight + gap + 2;
+    let active = -1;
+    sectionStarts.forEach((start, index) => {
+      if (start.getBoundingClientRect().top <= line) active = index;
+    });
+    if (window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2)
+      active = sectionLinks.length - 1;
+    if (active !== currentSection) {
+      currentSection = active;
+      sectionLinks.forEach((link, index) => {
+        if (index === active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }
+    topLink.hidden = window.scrollY < Math.max(400, window.innerHeight * 0.8);
   }
+  function scheduleNavigation() {
+    if (!navigationFrame) navigationFrame = requestAnimationFrame(updateNavigation);
+  }
+  window.addEventListener("scroll", scheduleNavigation, { passive: true });
+  window.addEventListener("resize", scheduleNavigation);
+  window.addEventListener("pageshow", scheduleNavigation);
+  if ("ResizeObserver" in window) {
+    const layoutObserver = new ResizeObserver(scheduleNavigation);
+    layoutObserver.observe(header);
+    layoutObserver.observe(document.querySelector("main"));
+  }
+  document.fonts?.ready.then(scheduleNavigation);
+  updateNavigation();
   // VIDEO:js — overview: a clean poster and one start button; the browser's controls appear once it plays.
   document.querySelectorAll(".promo-media").forEach((box) => {
     const v = box.querySelector("video");

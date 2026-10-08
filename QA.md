@@ -53,3 +53,15 @@ October 2, 2026 (KST), follow-up: body text was still small on Windows desktops,
 - Reading text was raised one more step on desktop: body 17px, lead and section intros 18px, captions, method steps, and table cells 16px. Table headers, uncertainty, takeaways, and legends are 14–15px.
 - `tabular-nums` now applies only to score cells; method names and column headers use normal figures, so hyphens no longer widen ("MAC-Flow", "Medium-Replay").
 - `scripts/verify_content.py` passes; no horizontal overflow at 1440, 390, or 320px.
+
+## Navigation and clean home URLs
+
+October 8, 2026 (KST): checked the navigation changes in Chromium, including screenshots at desktop and mobile sizes. No manuscript, research data, figure, or video asset changed.
+
+- The previous anchor position included the section's empty top padding. At 1440px, the content started about 123px below the header; at 390px it started about 81px below. The new content gap is 20px on desktop and 16px on mobile, with measured rounding differences below 2px at 1440, 390, and 320px. Citation stops at the document bottom when there is insufficient content below it to align its heading; no artificial footer space was added.
+- All eight TOC links, the Video/Explore results buttons, and benchmark highlight links checked. Problem and the nested Rollouts gallery now have TOC entries. The current-section highlight follows their content edges and updates at the document bottom.
+- Header layout checked at 1440, 1101, 1100, 1024, 960, 901, 900, 768, 390, and 320px: no page-level horizontal overflow or overlapping header links. The menu replaces the full TOC at 900px; the secondary header PDF button is hidden below 1101px to prevent wrapping. The hero's Paper button remains available.
+- Mobile menu opening, section selection, and Escape/focus return checked. At 844×390 landscape, the menu scrolls vertically to all eight items without wrapping into columns or extending beyond the viewport.
+- The floating Top button appears after scrolling, hides at the top and during figure dialogs, and has a 44px minimum target. Top actions return to the base URL without a page reload. Old `#top` URLs normalize to the base URL; query strings remain intact. Direct section URLs, browser Back/Forward, and reduced-motion behavior checked. The personal site's brand/footer home links passed the same clean-URL and history checks at 1440 and 390px.
+- Regression checks at 1440 and 390px passed: all three benchmark tabs, all six SMACv1 views, keyboard tab navigation, table/rollout synchronization, all three carousels' next/previous/dot/keyboard controls, figure zoom/close/Escape/focus restoration, additional Figure 7, citation copy feedback, and actual overview-video playback. No JavaScript runtime exceptions recorded.
+- `python3 scripts/verify_content.py`, `node --check assets/js/main.js`, and `git diff --check` pass. Local-directory home links are accepted by the asset verifier when the target contains `index.html`.

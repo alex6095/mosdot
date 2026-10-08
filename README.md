@@ -38,6 +38,8 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 Open <http://127.0.0.1:8000/>. The figure viewer, benchmark tabs, SMACv1 scenario selector, mobile navigation, and citation copy use vanilla JavaScript. All result tables remain available without JavaScript; figure links fall back to their original PDFs.
 
+The navigation follows the page order: Video, Problem, Overview, Method, Results, Rollouts, Diagnostics, and Citation. Section links retain shareable fragments; home links and the floating Top button return to the clean base URL. Legacy `#top` links are normalized without reloading. Anchor spacing follows the measured sticky header, leaving 20px above section content on desktop and 16px on mobile.
+
 ## Content and provenance
 
 - `index.html`: research narrative, confirmed authors, citation, and generated static tables.

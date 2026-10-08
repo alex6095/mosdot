@@ -44,7 +44,9 @@ html = (ROOT/'index.html').read_text()
 assets = AssetParser(); assets.feed(html)
 assert len(assets.ids) == len(set(assets.ids)), 'Duplicate HTML IDs'
 assert set(assets.links) <= set(assets.ids), 'Broken anchor'
-for path in assets.files: assert (ROOT/path).is_file(), f'Missing asset: {path}'
+for path in assets.files:
+    target = ROOT/path
+    assert target.is_file() or (target.is_dir() and (target/'index.html').is_file()), f'Missing asset: {path}'
 assert 'Anonymous' not in html and 'Submitted to' not in html
 for figure in figures:
     original = ROOT/'assets/figures/original'/Path(figure['overleafFile']).name

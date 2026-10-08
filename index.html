@@ -17,16 +17,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261008a">
-  <script src="assets/js/main.js?v=20261007a" defer></script>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261008b">
+  <script src="assets/js/main.js?v=20261008b" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <nav class="nav wrap" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="MoSDOT home"><img class="brand-mark" src="assets/icons/favicon.svg?v=20260926" width="28" height="28" alt="">MoSDOT</a>
+      <a class="brand" href="./" data-scroll-top aria-label="MoSDOT home"><img class="brand-mark" src="assets/icons/favicon.svg?v=20260926" width="28" height="28" alt="">MoSDOT</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu <span aria-hidden="true">☰</span></button>
-      <div class="nav-links" id="nav-links"><!-- VIDEO:nav --><a href="#video">Video</a><!-- /VIDEO:nav --><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#diagnostics">Diagnostics</a><a href="#citation">Citation</a></div>
+      <div class="nav-links" id="nav-links"><!-- VIDEO:nav --><a href="#video">Video</a><!-- /VIDEO:nav --><a href="#modes">Problem</a><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#rollouts">Rollouts</a><a href="#diagnostics">Diagnostics</a><a href="#citation">Citation</a></div>
       <a class="nav-paper" href="assets/paper/paper.pdf" target="_blank" rel="noopener">Read paper <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
@@ -161,7 +161,7 @@
           <div class="table-legend"><p>Mean ± 2σ · 6 seeds · higher is better</p><p><span class="legend-best">Bold</span> best mean <span class="legend-second">Underlined</span> second-best mean · ties included</p></div>
         </div>
         <p class="source-note">Tables 2–3 in the paper. Average columns reproduce the reported values without recalculation. <a href="assets/data/results.json" download>Download table data <span aria-hidden="true">↓</span></a><span class="scroll-hint">Swipe tables horizontally to see all columns.</span></p><!-- VIDEO:rollouts -->
-        <div class="rollouts">
+        <div class="rollouts" id="rollouts">
           <div class="diagnostic-heading"><div><h3>MoSDOT in action.</h3><p>MoSDOT's decentralized one-step actors on every benchmark. StarCraft II clips are rendered by the game engine itself during evaluation (MoSDOT red, built-in AI blue). The clips show successful episodes of policies re-trained with the paper configurations.</p></div></div>
           <div class="roll-tabs" role="tablist" aria-label="Benchmark">
             <button class="roll-tab" type="button" role="tab" id="roll-tab-mpe" aria-controls="roll-mpe" aria-selected="true" tabindex="0" data-roll="mpe">MPE <span>4 clips</span></button>
@@ -451,7 +451,8 @@
 }</code></pre><p class="copy-status" role="status" aria-live="polite"></p></div></div>
     </section>
   </main>
-  <footer class="footer"><div class="wrap footer-grid"><a class="brand" href="#top">MoSDOT <span class="footer-year">/ 2026</span></a><p>Multi-Agent Coordination via Support-Preserving Distillation</p><a href="https://github.com/alex6095/mosdot">Page source <span aria-hidden="true">↗</span></a></div></footer>
+  <footer class="footer"><div class="wrap footer-grid"><a class="brand" href="./" data-scroll-top>MoSDOT <span class="footer-year">/ 2026</span></a><p>Multi-Agent Coordination via Support-Preserving Distillation</p><a href="https://github.com/alex6095/mosdot">Page source <span aria-hidden="true">↗</span></a></div></footer>
+  <a class="back-to-top" href="./" data-scroll-top aria-label="Back to top" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 11 6-6 6 6 M12 5v14"/></svg><span>Top</span></a>
   <dialog class="figure-dialog" aria-labelledby="viewer-title"><div class="viewer-toolbar"><h2 id="viewer-title">Figure</h2><div><button class="viewer-zoom" type="button" aria-pressed="false">Zoom in</button><a class="viewer-original" href="assets/figures/original/fig1_rrrr.pdf" target="_blank" rel="noopener">Original PDF ↗</a><button class="viewer-close" type="button" aria-label="Close figure viewer">Close <span aria-hidden="true">×</span></button></div></div><div class="viewer-scroll" tabindex="0" aria-label="Figure image, scroll when zoomed"><img class="viewer-image" alt=""></div><p class="viewer-caption"></p></dialog>
 </body>
 </html>
