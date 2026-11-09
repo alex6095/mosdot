@@ -17,7 +17,7 @@ arXiv: <https://arxiv.org/abs/2610.10087>
 
 [![MoSDOT overview video](assets/videos/mosdot_promo_poster.jpg)](https://alex6095.github.io/mosdot/#video)
 
-Two-minute overview (click to play on the project page). Below: MoSDOT's decentralized one-step actors on the benchmarks, from policies re-trained with the paper configurations (successful episodes). StarCraft II clips are rendered by the game itself.
+Two-minute overview (click to play on the project page). Below: MoSDOT's decentralized one-step actors on the benchmarks, from policies re-trained with the paper configurations (successful episodes). StarCraft II clips are rendered by the game itself. Colossus and Medivac beams, which its headless Linux renderer does not draw, are added afterwards from the recorded game state.
 
 | Landmark diagnostic, the paper figure's runs: teachers (top) vs distilled students (bottom) | MPE Simple Spread (Medium data) |
 | --- | --- |
